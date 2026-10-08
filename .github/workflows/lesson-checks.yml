@@ -1,0 +1,22 @@
+name: Lesson checks
+on:
+  push:
+    branches: ['learning/**']
+  pull_request:
+    paths: ['lessons/**', 'index.html', 'README.md', '.github/workflows/lesson-checks.yml']
+permissions:
+  contents: read
+jobs:
+  lesson:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Math branches and numerical cases
+        run: node --test lessons/zero-scale/tests/math.test.js
+      - name: Static artifacts, local links and reproducible course build
+        run: python3 lessons/zero-scale/tests/static_test.py
+      - name: Generated outputs unchanged
+        run: git diff --exit-code -- lessons/zero-scale

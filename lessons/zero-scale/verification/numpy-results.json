@@ -1,0 +1,9 @@
+{
+  "cases": 240,
+  "unique": 120,
+  "family": 60,
+  "none": 60,
+  "worst_reconstruction_residual": 3.552713678800501e-15,
+  "numpy_version": "2.3.5",
+  "status": "passed"
+}

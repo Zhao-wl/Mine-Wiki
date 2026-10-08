@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "duration_seconds": 489.584,
+  "video_duration": 489.583333,
+  "audio_duration": 489.583991,
+  "size_bytes": 6027100,
+  "sha256": "5d20a4d9982f88c69f18db0b39a95bfce3e3008c5e92aa1789acbd4f6c50b139",
+  "video": "H.264 1280x720 12fps",
+  "audio": "AAC mono 22050Hz 64kbps",
+  "cue_count": 76,
+  "scene_count": 13,
+  "min_cue_rms": 0.07705489546060562,
+  "max_cue_rms": 0.1280602663755417,
+  "clipped_sample_ratio": 2.778798729014512e-07,
+  "sampled_frame_count": 7,
+  "max_subtitle_image_mean_abs_error": 1.9850107266987063,
+  "subjective_listening": "Not performed by a human; synthetic Mandarin voice is mechanical. Numeric checks do not certify pronunciation quality."
+}

@@ -1,0 +1,43 @@
+<!-- lab:basis -->
+<div class="lab" id="lab-basis">
+<div class="lab-tag">实验 01 · 两把尺子</div><h3>拖动箭头，观察同一份配方</h3>
+<p>先预测，再把 b₁、b₂ 的端点拖到新位置。配方始终是 (1,1)；橙点表示两列相加的结果。</p>
+<div class="lab-grid"><div><svg id="basis-plot" class="plot" viewBox="0 0 440 360" role="group" aria-label="可拖动的两支基向量，横轴向右，纵轴向上"></svg><div class="legend"><span>b₁</span><span>b₁+b₂</span><span>b₂</span></div></div>
+<div class="controls"><div class="pair"><label>b₁ 的 x<input type="range" id="b1x" min="-3" max="3" step="0.25" value="0"></label><label>b₁ 的 y<input type="range" id="b1y" min="-3" max="3" step="0.25" value="2"></label></div>
+<div class="pair"><label>b₂ 的 x<input type="range" id="b2x" min="-3" max="3" step="0.25" value="-1"></label><label>b₂ 的 y<input type="range" id="b2y" min="-3" max="3" step="0.25" value="0"></label></div>
+<p class="control-help">键盘：Tab 聚焦滑条后用方向键；也可聚焦图上端点，用方向键移动 0.25。手机可拖动端点，或用上方滑条。</p>
+<div id="basis-output" class="result" aria-live="polite"></div><div class="lab-buttons"><button id="basis-reset">重置</button><button id="basis-zero">令 b₁ 精确为零</button><button id="basis-collinear">令两列共线</button></div></div></div>
+<p class="fallback">静态后备：b₁=(0,2)、b₂=(−1,0) 时，(1,1)→(−1,2)。b₁=(0,0) 时，(1,1) 与 (9,1) 都到 (−1,0)，两列不再构成平面的基。</p>
+</div>
+<!-- lab:order -->
+<div class="lab" id="lab-order"><div class="lab-tag">实验 02 · 右侧先执行</div><h3>让 RS 与 SR 同时走一遍</h3>
+<p>固定 p=(1,1)，比较中间箭头与最终位置。两条路径最后都平移 (3,2)。</p>
+<div class="lab-grid"><div><svg id="order-plot" class="plot" viewBox="0 0 440 360" role="img" aria-label="RS 和 SR 的步骤轨迹"></svg><div class="legend"><span>RS：先缩放</span><span>SR：先旋转</span></div></div><div class="controls">
+<label>x 缩放 s <output id="order-s-label">2</output><input id="order-s" type="range" min="-2" max="3" step="0.25" value="2"></label>
+<label>当前步骤<select id="order-step"><option value="0">0 · 输入</option><option value="1">1 · 第一次操作</option><option value="2">2 · 第二次操作</option><option value="3" selected>3 · 最后平移</option></select></label>
+<div class="lab-buttons"><button id="order-next">下一步</button><button id="order-zero">精确零</button><button id="order-reset">重置</button></div>
+<div class="result" id="order-output" aria-live="polite"></div></div></div>
+<p class="fallback">静态后备：s=2，RS 路径 (1,1)→(2,1)→(−1,2)→(2,4)；SR 路径 (1,1)→(−1,1)→(−2,1)→(1,3)。</p></div>
+<!-- lab:precision -->
+<div class="lab" id="lab-precision"><div class="lab-tag">实验 03 · 小刻度与误差</div><h3>同样的噪声，反求后差多少？</h3>
+<p>跟踪局部 x=1，对世界中编码这个 x 的分量加噪声 δ。A_s 中它是 v；均匀 sI 比较中它是 u（该比较也给这一轴加平移 2，以展示消去误差）。</p>
+<div class="lab-grid"><div class="controls"><label>变换<select id="precision-kind"><option value="axis">单轴 A_s：奇异值为 |s| 与 1</option><option value="uniform">均匀 sI：两个奇异值均为 |s|</option></select></label>
+<label>缩放 s<select id="precision-s"><option value="2">2</option><option value="1">1</option><option value="0.01">0.01</option><option value="0.000001" selected>0.000001</option><option value="0.00000001">0.00000001</option><option value="0">精确 0</option></select></label>
+<label>世界分量误差 δ<select id="precision-noise"><option value="0">0</option><option value="0.00000001">0.00000001</option><option value="0.000001">0.000001</option><option value="0.0001" selected>0.0001</option><option value="-0.0001">−0.0001</option></select></label><button id="precision-reset">重置</button></div>
+<div><div id="precision-output" class="result" aria-live="polite"></div><div class="meter" aria-hidden="true"><div id="precision-meter"></div></div><p class="small">条长使用 log₁₀(1+|δ/s|) 显示绝对误差，仅辅助看数量级。float32 行对每一步显式取单精度；普通行使用 JavaScript 双精度。</p></div></div>
+<p class="fallback">静态后备：s=10⁻⁶、δ=10⁻⁴，理想绝对反求误差是 100。A_s 的 κ₂=10⁶；均匀 sI 的 κ₂=1，绝对误差仍是 100。s=0 时直接检查目标能否到达，不做除法。</p></div>
+<!-- lab:reparent -->
+<div class="lab" id="lab-reparent"><div class="lab-tag">实验 04 · 保持什么？</div><h3>旧父与新父，分别设成精确零</h3>
+<p>两父均采用 M_s；旧局部为平移 T(x,y)。图中画子物体的三个点：原点、右侧点、上方点。连线压扁本身也是结果。</p>
+<div class="lab-buttons presets"><button data-preset="old-zero">旧父零 → 新父可逆</button><button data-preset="unreachable">新父零 · 位置无解</button><button data-preset="position-only">位置可达 · 完整无解</button><button data-preset="family">两父零 · 多解</button></div>
+<div class="lab-grid"><div><svg id="reparent-plot" class="plot" viewBox="0 0 440 360" role="img" aria-label="换父前后子原点和两个局部轴端点"></svg><div class="legend"><span>重建结果</span><span>旧世界目标（空心）</span><span>新父可达线（奇异时）</span></div>
+<div id="reparent-summary" class="result" aria-live="polite"></div></div><div class="controls">
+<div class="pair"><label>旧父 s<select id="old-s"><option value="0" selected>精确 0</option><option value="2">2</option><option value="-2">−2</option><option value="0.01">0.01</option></select></label><label>新父 s<select id="new-s"><option value="2" selected>2</option><option value="0">精确 0</option><option value="-2">−2</option><option value="0.01">0.01</option></select></label></div>
+<div class="pair"><label>旧局部 x<input id="local-x" type="range" min="-2" max="2" step="0.5" value="1"></label><label>旧局部 y<input id="local-y" type="range" min="-2" max="2" step="0.5" value="1"></label></div>
+<label>新父平移的 y<select id="new-ty"><option value="2">2（与旧父相同）</option><option value="3">3（移动可达直线）</option></select></label>
+<label>目标<select id="keep-mode"><option value="world">keep-world · 保持完整世界矩阵</option><option value="local">keep-local · 保持局部矩阵</option></select></label>
+<fieldset id="family-controls"><legend class="small">多解时沿核方向添加的自由参数</legend><label>第一列 α<input id="free-a" type="range" min="-2" max="2" step="0.5" value="0"></label><label>第二列 β<input id="free-b" type="range" min="-2" max="2" step="0.5" value="0"></label><label>平移列 γ<input id="free-t" type="range" min="-2" max="2" step="0.5" value="0"></label></fieldset>
+<p class="control-help">只在 keep-world 完整方程有多解时启用三个参数。这里展示一般仿射解，不代替引擎的 TRS 分解或零缩放策略。</p><button id="reparent-reset">重置</button></div></div>
+<details><summary>查看矩阵、解集与回代残差</summary><div id="reparent-matrices" class="matrix-output"></div></details>
+<p class="fallback">静态后备：旧父 M₀、新父 M₂、旧局部 T(1,1) 时，L_new=[[0,0,0],[0,1,1],[0,0,1]]，回代残差为 0。旧父 M₂、新父 M₀、旧局部 T(0,1) 时，原点 (2,2) 可达，但旧世界第一列 (0,2) 不可达。</p>
+</div>
