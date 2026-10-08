@@ -18,6 +18,16 @@ class Links(HTMLParser):
 
 class ContentTests(unittest.TestCase):
     def setUp(self):self.c=load_catalog()
+    def nonformula_fixture(self):
+        node={'id':'fixture-observation','title':'观察与推断（仅测试夹具）','status':'ready',
+              'summary':'能区分直接记录与解释，并检查解释是否充分。','minutes':3,
+              'requires':[],'related':[],'sources':[],
+              'intuition':['观察记录看到的情况；推断为情况提出解释。'],
+              'steps':['看到房间的灯亮着，这是观察。','认为房间里有人，是一种仍需验证的推断。'],
+              'exercise':'仅凭灯亮着，能断定房间里有人吗？',
+              'answer':'不能；无人时灯也可能亮着，需要更多证据。'}
+        self.c['nodes'][node['id']]=node
+        return node
     def reject(self,text):
         with self.assertRaisesRegex(ContentError,text):validate(self.c)
     def test_current_catalog(self):
@@ -49,6 +59,32 @@ class ContentTests(unittest.TestCase):
         self.c['nodes']['point-vector']['sources']=['absent'];self.reject('unknown citation')
     def test_ready_requires_complete_teaching_unit(self):
         self.c['nodes']['basis-coordinates']['answer']='';self.reject('ready content incomplete')
+    def test_ready_nonformula_unit_builds_without_numeric_assets(self):
+        node=self.nonformula_fixture();validate(self.c)
+        page=render_site(self.c)['knowledge/'+node['id']+'/index.html']
+        self.assertIn(node['intuition'][0],page);self.assertIn(node['answer'],page)
+        self.assertIn('逐步理解与例证',page);self.assertIn('检查理解',page)
+        self.assertIn('data-mastery="'+node['id']+'"',page)
+        p=Links();p.feed(page)
+        self.assertIn('example',p.ids);self.assertNotIn('formula',p.ids);self.assertNotIn('experiment',p.ids)
+        self.assertNotIn('本页算例与坐标约定',page);self.assertNotIn('位置与位移的直觉',page)
+        for _,href in p.links:
+            u=urlsplit(href)
+            if u.fragment and not u.path:self.assertIn(u.fragment,p.ids)
+    def test_reference_to_absent_formula_anchor_fails(self):
+        node=self.nonformula_fixture()
+        self.c['nodes']['point-vector']['related']=[{'node':node['id'],'anchor':'formula'}]
+        self.reject('missing anchor .*#formula')
+    def test_nonformula_ready_still_needs_explanation_example_and_check(self):
+        for field,value in [('intuition',[]),('steps',[]),('exercise',''),('answer',''),('summary','')]:
+            with self.subTest(field=field):
+                node=self.nonformula_fixture();node[field]=value
+                with self.assertRaises(ContentError):validate(self.c)
+    def test_optional_fields_are_checked_when_provided(self):
+        for field,value,message in [('example','missing','unknown example'),('lab','missing','unknown lab'),('formula',[],'formula must be nonempty')]:
+            with self.subTest(field=field):
+                node=self.nonformula_fixture();node[field]=value
+                self.reject(message)
     def test_ready_path_requires_ready_steps(self):
         self.c['nodes']['basis-coordinates']['status']='draft';self.reject('not ready')
     def test_ready_path_checks_prerequisite_order(self):

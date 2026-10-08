@@ -62,7 +62,7 @@ def validate(catalog,root=ROOT):
         require(all(example.get(k) for k in ['title','conventions','formula','facts']),f'{key}: incomplete example')
     for key,n in nodes.items():
         require(n.get('status') in STATUSES,f'{key}: invalid status')
-        require(n.get('title') and n.get('summary'),f'{key}: title and summary required even for stub')
+        require(all(isinstance(n.get(f),str) and n[f].strip() for f in ['title','summary']),f'{key}: title and summary required even for stub')
         for relation in ['requires','related']:
             require(isinstance(n.get(relation),list),f'{key}: {relation} must be a list')
             seen=set()
@@ -72,10 +72,10 @@ def validate(catalog,root=ROOT):
                 if relation=='requires':require(isinstance(r.get('reason'),str) and bool(r['reason'].strip()),f'{key}: prerequisite needs a reason')
         if n['status']=='ready':
             for field in ['intuition','steps']:strings(n.get(field),key+': '+field,True)
-            require(all(isinstance(n.get(f),str) and n[f].strip() for f in ['formula','exercise','answer']),f'{key}: ready content incomplete')
+            require(all(isinstance(n.get(f),str) and n[f].strip() for f in ['exercise','answer']),f'{key}: ready content incomplete')
             require(isinstance(n.get('minutes'),int) and n['minutes']>0,f'{key}: invalid reading time')
-            require(n.get('example') in examples,f'{key}: missing example')
-        elif 'example'in n:require(n['example'] in examples,f'{key}: unknown example')
+        if 'formula'in n:require(isinstance(n['formula'],str) and bool(n['formula'].strip()),f'{key}: formula must be nonempty when provided')
+        if 'example'in n:require(n['example'] in examples,f'{key}: unknown example')
         if 'lab'in n:require(n['lab'] in labs,f'{key}: unknown lab')
         if 'figure'in n:file(n['figure'])
         require(isinstance(n.get('sources',[]),list),f'{key}: sources must be a list')

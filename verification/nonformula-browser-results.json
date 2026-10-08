@@ -1,0 +1,27 @@
+{
+  "passed": 18,
+  "checks": [
+    "nonformula ready unit renders without numeric assets",
+    "generic example/check labels render",
+    "example anchor works",
+    "understanding answer opens",
+    "ready self-assessment works",
+    "fixture mobile layout has no overflow",
+    "existing formula retained: point-vector",
+    "existing formula retained: basis-coordinates",
+    "existing formula retained: matrix-linear-map",
+    "existing formula retained: transform-composition",
+    "existing formula retained: affine-homogeneous",
+    "existing formula retained: local-world-transforms",
+    "existing formula retained: invertibility-information",
+    "existing formula retained: numerical-conditioning",
+    "existing formula retained: reparenting-equations",
+    "continuous path retains all nine formulas",
+    "no JavaScript errors",
+    "no remote subresources"
+  ],
+  "fixture_only": true,
+  "actual_node_count": 9,
+  "javascript_errors": [],
+  "remote_subresources": []
+}

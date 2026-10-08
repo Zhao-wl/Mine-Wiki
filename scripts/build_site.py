@@ -59,7 +59,7 @@ def render_site(c):
     def content(page,n,section_id,standalone=False,number=None,within=None):
         def aid(name):return name if standalone else section_id+'--'+name
         alias=f'<span class="anchor-alias" id="{n["id"]}"></span>' if n['id']!=section_id and not standalone else ''
-        req='<h3>先理解这些</h3>'+relation_list(page,n['requires'],within,True) if n['requires'] else '<p class="small">本单元从位置与位移的直觉开始，不要求已有矩阵知识。</p>'
+        req='<h3>先理解这些</h3>'+relation_list(page,n['requires'],within,True) if n['requires'] else '<p class="small">本单元不要求先阅读其他知识节点。</p>'
         head=(f'<span class="number">{number:02}</span>' if number else '')+f'<span class="duration">约 {n.get("minutes",0)} 分钟 · {LABEL[n["status"]]}</span>'
         body=''
         if n['status']!='ready':body+=f'<p class="callout">{LABEL[n["status"]]}：{E(n["summary"])}。尚不作为已完成的前置知识。</p>'
@@ -68,9 +68,9 @@ def render_site(c):
         if n.get('intuition'):body+=f'<h3 id="{aid("intuition")}">先有直觉</h3>'+''.join(f'<p>{E(t)}</p>' for t in n['intuition'])
         if n.get('formula'):body+=f'<pre class="formula" id="{aid("formula")}">{E(n["formula"])}</pre>'
         if n.get('figure'):body+=f'<figure class="diagram"><a href="{relative(page,n["figure"])}"><img src="{relative(page,n["figure"])}" alt="{E(n["title"])}"></a><figcaption>原创图解 · 点击可单独放大查看</figcaption></figure>'
-        if n.get('steps'):body+=f'<h3 id="{aid("example")}">一步一步算</h3><ol class="steps">'+''.join(f'<li>{E(t)}</li>' for t in n['steps'])+'</ol>'
+        if n.get('steps'):body+=f'<h3 id="{aid("example")}">{"一步一步算" if n.get("formula") else "逐步理解与例证"}</h3><ol class="steps">'+''.join(f'<li>{E(t)}</li>' for t in n['steps'])+'</ol>'
         if n.get('lab'):body+=f'<div id="{aid("experiment")}">'+labs[n['lab']]+'</div>'
-        if n.get('exercise'):body+=f'<div class="exercise" id="{aid("exercise")}"><span class="tag">停一下 · 自己算</span><p>{E(n["exercise"])}</p>'+ (f'<details><summary>展开答案与理由</summary><p>{E(n["answer"])}</p></details>' if n.get('answer') else '<p>答案整理中。</p>')+'</div>'
+        if n.get('exercise'):body+=f'<div class="exercise" id="{aid("exercise")}"><span class="tag">停一下 · {"自己算" if n.get("formula") else "检查理解"}</span><p>{E(n["exercise"])}</p>'+ (f'<details><summary>展开答案与理由</summary><p>{E(n["answer"])}</p></details>' if n.get('answer') else '<p>答案整理中。</p>')+'</div>'
         if n.get('sources'):body+='<p class="source">依据与延伸：'+' · '.join(f'<a href="{E(c["sources"][sid]["url"])}" target="_blank" rel="noreferrer">{E(c["sources"][sid]["title"])}</a>' for sid in n['sources'])+'</p>'
         if n['status']=='ready':body+=f'<label class="mastery"><input type="checkbox" data-mastery="{n["id"]}">我能不用看答案解释这一单元</label>'
         return f'<section class="chapter" id="{section_id}" data-node-id="{n["id"]}">{alias}<div class="chapter-head">{head}</div><h2>{E(n["title"])}</h2>{req}{body}</section>'
@@ -87,7 +87,7 @@ def render_site(c):
         out[page]=shell(page,t['title'],hero('主题导航',t['title'],t['summary']),body)
     for key,n in c['nodes'].items():
         page=node_url(key);body='<section class="intro">'+(example(n['example']) if n.get('example') else '')+'</section>'+content(page,n,'overview',True)+'<section class="appendix" id="connections"><h2>把这段理解接到别处</h2>'+connections(page,key)+'</section>'+note_box()+f'<section class="appendix" id="references"><h2>引用资料</h2>{sources(page,n.get("sources",[]))}</section>'
-        rail='<div class="label">一个完整学习单元</div><ol>'+''.join(f'<li><a href="#{a}">{title}</a></li>' for a,title in [('overview','从这里开始'),('intuition','直觉'),('example','逐步算例'),('experiment','交互实验'),('exercise','练习与答案'),('connections','前后关联'),('notes','我的疑问')] if a in anchors(n))+'</ol>'
+        rail='<div class="label">一个完整学习单元</div><ol>'+''.join(f'<li><a href="#{a}">{title}</a></li>' for a,title in [('overview','从这里开始'),('intuition','直觉'),('example','逐步算例' if n.get('formula') else '例证与推演'),('experiment','交互实验'),('exercise','练习与答案'),('connections','前后关联'),('notes','我的疑问')] if a in anchors(n))+'</ol>'
         out[page]=shell(page,n['title'],hero('知识节点 · '+LABEL[n['status']],n['title'],n['summary']),body,rail,'node:'+key,1 if n['status']=='ready' else 0)
     for key,p in c['paths'].items():
         page=path_url(key);within={s['node']:s.get('legacy_anchor',s['node']) for s in p['steps']}
