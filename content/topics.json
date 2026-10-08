@@ -1,0 +1,39 @@
+{
+  "items": [
+    {
+      "id": "linear-algebra",
+      "title": "线性代数",
+      "summary": "从向量的几何意义，到矩阵、可逆性与误差。让每个符号有可以追踪的含义。",
+      "nodes": [
+        "point-vector",
+        "basis-coordinates",
+        "matrix-linear-map",
+        "transform-composition",
+        "affine-homogeneous",
+        "invertibility-information",
+        "numerical-conditioning"
+      ],
+      "paths": [
+        "zero-scale"
+      ]
+    },
+    {
+      "id": "graphics-transforms",
+      "title": "图形学与坐标变换",
+      "summary": "把数学放回局部、父级与世界空间，理解变换链与引擎表示之间的边界。",
+      "nodes": [
+        "point-vector",
+        "basis-coordinates",
+        "matrix-linear-map",
+        "transform-composition",
+        "affine-homogeneous",
+        "local-world-transforms",
+        "numerical-conditioning",
+        "reparenting-equations"
+      ],
+      "paths": [
+        "zero-scale"
+      ]
+    }
+  ]
+}

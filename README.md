@@ -1,26 +1,60 @@
 # Mine-Wiki
 
-从实际问题出发，按前置知识循序补习的中文学习案例。页面为静态文件，无账户、无统计、无远程运行依赖。
+从问题出发，把一个知识点的前提、原理、算例与应用逐步讲清。以静态交互网页为主；知识节点独立维护，主题帮助查找，问题路径把节点串成连贯的学习过程。
 
-## 学习案例
+- [学习首页](index.html)
+- [线性代数](topics/linear-algebra/index.html)
+- [图形学与坐标变换](topics/graphics-transforms/index.html)
+- [问题路径：缩放为零之后，坐标去了哪里？](lessons/zero-scale/index.html)
+- [从一个节点开始：基与坐标](knowledge/basis-coordinates/index.html)
 
-### 001 · 缩放为零之后，坐标去了哪里？
+首批 9 个完整知识节点、2 个主题入口、1 条问题路径、4 个交互实验。每个节点保留直觉、逐步算例、小练习与答案；前置知识注明原因，并能看到哪些知识和问题使用它。旧课程入口及章节锚点继续可用。
 
-围绕父节点某轴零缩放时的换父/挂点问题，从点、向量、基与矩阵开始，走到逆、核、秩、数值误差和完整世界变换。
-
-- [课程主入口：交互 HTML](lessons/zero-scale/index.html)
-- [完整文字课程](lessons/zero-scale/course.md)
-- [中文讲解视频 MP4](lessons/zero-scale/media/lesson-zh.mp4)（约 8 分 10 秒，约 5.8 MiB）
-- [字幕与逐字稿](lessons/zero-scale/media/transcript.md)
-- [验证报告](lessons/zero-scale/verification/report.md)
-- [实现结构与复现](lessons/zero-scale/README.md)
-
-下载或克隆后，可打开根目录 `index.html`。若浏览器禁止 `file://` 或需要视频分段拖播，使用只监听本机的预览：
+## 本地阅读
 
 ```bash
-python3 lessons/zero-scale/scripts/preview.py --port 8765
+python3 scripts/preview.py --port 8765
 ```
 
-随后打开 `http://127.0.0.1:8765/lessons/zero-scale/`。这不构成公开部署。受管 Chromium 对 `file://` 的限制已记录在验证报告中。
+打开 `http://127.0.0.1:8765/index.html`。服务器只监听本机，不构成公开部署。页面没有远程脚本、账户或统计；正文和练习答案不依赖 JavaScript，实验提供静态后备。浏览器允许时也可直接打开 HTML；当前受管 Chromium 禁止 `file://`，已验证回环加载后的断网交互。
 
-目录以 `lessons/<case-slug>/` 扩展；已有案例独立维护，不覆盖历史内容。
+节点自评跨页面共享，疑问按节点或问题路径分别保存在当前浏览器。旧课程记录会一次性迁入，原记录保留作备份。没有跨设备同步；更换浏览器或域名也不会自动迁移，可先导出 JSON 留底。
+
+## 内容与维护
+
+| 位置 | 作用 |
+| --- | --- |
+| `content/nodes/*.json` | 独立知识节点的唯一正文源、必要前置、相关节点和状态 |
+| `content/paths/*.json` | 问题情境、节点顺序、串讲过渡、案例附录与兼容映射 |
+| `content/topics.json` | 主题导航，只引用节点和路径 |
+| `content/examples/*.json` / `content/sources.json` | 共享算例、约定和引用资料 |
+| `assets/` | 共享数学函数、实验模板、交互和样式 |
+| `scripts/` | 标准库生成、关系校验和本地预览 |
+| `knowledge/` / `topics/` / `lessons/*/index.html` | 由单一内容源生成的阅读页面 |
+| `tests/` / `verification/` | 构建、引用、状态、浏览器与存储迁移检查 |
+
+[内容维护约定](docs/authoring.md)包含稳定 ID、引用、缺失节点、增量修改及旧 URL 兼容规则。[本次迁移验证](verification/migration-report.md)记录具体结果和限制。
+
+```bash
+python3 scripts/build_site.py
+python3 scripts/build_site.py --check
+python3 tests/content_test.py
+node --test lessons/zero-scale/tests/math.test.js
+# 已安装 NumPy、Playwright 和 Chromium 的环境中：
+python3 lessons/zero-scale/tests/numpy_oracle.py
+python3 tests/browser_test.py
+```
+
+生成和基础校验只需 Python 标准库；数学测试使用 Node。阅读网页不需要这些构建依赖。旧目录下的构建、静态检查、浏览器检查命令仍会调用新入口。
+
+## 离线读者包
+
+```bash
+python3 scripts/package_reader.py --output /tmp/mine-wiki-knowledge-reader.zip
+```
+
+包内只含阅读页面、所需静态资源和可选历史媒体，会校验本地链接与 ZIP 完整性。这是文件交付，不是网站部署。
+
+## 历史辅助资料
+
+[早期视频、字幕和讲稿](lessons/zero-scale/history.html)保留作回看，不再随知识节点持续维护，也不是每个节点的必配资产。本次没有重渲染视频、下载模型或删除历史媒体。文字导出 `lessons/zero-scale/course.md` 仍由当前问题路径生成，供旧链接和离线阅读使用。

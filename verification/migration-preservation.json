@@ -1,0 +1,43 @@
+{
+  "baseline_commit": "06345f6a69b63f460388950dbdc8f99e2a5f1fec",
+  "unchanged_node_teaching_content": [
+    "point-vector",
+    "basis-coordinates",
+    "matrix-linear-map",
+    "transform-composition",
+    "affine-homogeneous",
+    "local-world-transforms",
+    "invertibility-information",
+    "numerical-conditioning",
+    "reparenting-equations"
+  ],
+  "path_bridges_preserved": true,
+  "api_evidence_preserved": true,
+  "mathematical_implementation_unchanged": true,
+  "historical_media_unchanged": {
+    "lessons/zero-scale/media/lesson-zh.mp4": {
+      "bytes": 6027100,
+      "sha256": "5d20a4d9982f88c69f18db0b39a95bfce3e3008c5e92aa1789acbd4f6c50b139"
+    },
+    "lessons/zero-scale/media/lesson-zh.srt": {
+      "bytes": 7780,
+      "sha256": "e02f98c5ddfeb5fb56f9d35ca291794446370fffabfa4d465a5c6dfd01c6ff93"
+    },
+    "lessons/zero-scale/media/lesson-zh.vtt": {
+      "bytes": 7569,
+      "sha256": "aab0560f218c07f224259199513f23616e2156928000ed5638d4dd54a1f55a35"
+    },
+    "lessons/zero-scale/media/poster.jpg": {
+      "bytes": 74530,
+      "sha256": "20ddcf718015fe63df703fa54ad870f888256f20bb1de536dd6722339c0918b3"
+    },
+    "lessons/zero-scale/media/timing.json": {
+      "bytes": 18037,
+      "sha256": "03469c9bbebb0d88fe33f5017ebc2bb282697d3f9905a9f775cefddb2d193871"
+    },
+    "lessons/zero-scale/media/transcript.md": {
+      "bytes": 10061,
+      "sha256": "ca0e04ee79cd1f17a6e9ee64f9f0e22f352d6561d9f06fff9cfa21e756eb098b"
+    }
+  }
+}

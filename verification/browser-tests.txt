@@ -1,0 +1,132 @@
+PASS nine static chapters
+PASS four experiments
+PASS basis-output: 不构成平面的基
+PASS basis keyboard handle
+PASS basis pointer drag
+PASS basis-output: det=0
+PASS order-output: (2, 4)
+PASS order-output: (1, 3)
+PASS order-output: (2, 2)
+PASS order-output: (3, 3)
+PASS order-output: 第 0 步
+PASS precision-output: κ₂=1；
+PASS precision-output: 理论 δ/s：100
+PASS precision-output: 无解
+PASS precision-output: 均任意
+PASS precision-output: float32 反求 x：0
+PASS reparent-summary: 保持完整矩阵：唯一解
+PASS reparent-summary: |=0
+PASS reparent-summary: 只保持原点：无解
+PASS reparent-summary: 只保持原点：无穷多解
+PASS reparent-summary: 保持完整矩阵：无解
+PASS reparent-summary: 保持完整矩阵：无穷多解
+PASS free parameters enabled
+PASS reparent-summary: |=0
+PASS reparent-summary: 保持完整矩阵：无解
+PASS reparent-summary: 仅正向乘法
+PASS free parameters disabled
+PASS progress-label: 1 / 9
+PASS local note persistence
+PASS mastery persistence
+PASS export JSON
+PASS clear local notes
+PASS progress-label: 0 / 9
+PASS video is optional history, not part of learning page
+PASS legacy video anchor links to history
+PASS no horizontal overflow at 320px
+PASS no horizontal overflow at 390px
+PASS no horizontal overflow at 768px
+PASS no JavaScript errors
+PASS no remote subresource requests
+PASS no-JS full content
+PASS no-JS answer disclosure
+PASS reparent-summary: 保持完整矩阵：无解
+PASS basis-output: det=0
+PASS offline interaction after loading exclusively from loopback
+PASS notes-status: 未写入本地存储
+PASS basis-output: det=0
+PASS mobile touch drag
+PASS home has two topic entries
+PASS linear-algebra has reusable nodes and path
+PASS graphics-transforms has reusable nodes and path
+PASS point-vector standalone unit
+PASS point-vector only initializes present labs
+PASS point-vector reverse path link
+PASS basis-coordinates standalone unit
+PASS basis-coordinates only initializes present labs
+PASS basis-coordinates reverse path link
+PASS matrix-linear-map standalone unit
+PASS matrix-linear-map only initializes present labs
+PASS matrix-linear-map reverse path link
+PASS transform-composition standalone unit
+PASS transform-composition only initializes present labs
+PASS transform-composition reverse path link
+PASS affine-homogeneous standalone unit
+PASS affine-homogeneous only initializes present labs
+PASS affine-homogeneous reverse path link
+PASS local-world-transforms standalone unit
+PASS local-world-transforms only initializes present labs
+PASS local-world-transforms reverse path link
+PASS invertibility-information standalone unit
+PASS invertibility-information only initializes present labs
+PASS invertibility-information reverse path link
+PASS numerical-conditioning standalone unit
+PASS numerical-conditioning only initializes present labs
+PASS numerical-conditioning reverse path link
+PASS reparenting-equations standalone unit
+PASS reparenting-equations only initializes present labs
+PASS reparenting-equations reverse path link
+PASS basis-output: 不构成平面的基
+PASS standalone basis keyboard interaction
+PASS node and path share identical worked example
+PASS old anchor points
+PASS old anchor basis
+PASS old anchor columns
+PASS old anchor order
+PASS old anchor affine
+PASS old anchor hierarchy
+PASS old anchor inverse
+PASS old anchor precision
+PASS old anchor reparent
+PASS home no overflow at 320px
+PASS topic no overflow at 320px
+PASS node no overflow at 320px
+PASS inverse no overflow at 320px
+PASS path no overflow at 320px
+PASS home no overflow at 390px
+PASS topic no overflow at 390px
+PASS node no overflow at 390px
+PASS inverse no overflow at 390px
+PASS path no overflow at 390px
+PASS home no overflow at 768px
+PASS topic no overflow at 768px
+PASS node no overflow at 768px
+PASS inverse no overflow at 768px
+PASS path no overflow at 768px
+PASS all visited learning pages have no JS errors
+PASS all learning resources local
+PASS standalone node without JavaScript
+PASS old mastery imported into stable node
+PASS old path notes not misassigned to node
+PASS all nine old mastery keys mapped
+PASS legacy note preserved on path
+PASS legacy source untouched
+PASS migration only once, false remains false
+PASS path shows migrated note
+PASS path reflects shared node self-assessment
+PASS cross-tab shared mastery updates
+PASS clear does not resurrect legacy mastery
+PASS clear does not resurrect legacy note
+PASS clear preserves old backup
+PASS clear preserves other page notes
+PASS export retains all scopes and migration marker
+PASS migration preserves newer explicit false and notes
+PASS malformed records never overwritten
+PASS notes-status: 未写入
+PASS future version records never overwritten
+PASS notes-status: 未写入
+PASS notes-status: 旧记录格式异常
+PASS malformed legacy preserved
+PASS notes-status: 未允许本地存储
+PASS basis-output: 不构成平面的基
+131 browser checks passed

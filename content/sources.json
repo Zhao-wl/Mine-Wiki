@@ -1,0 +1,41 @@
+{
+  "checked_at": "2026-10-08",
+  "items": [
+    {
+      "id": "mit",
+      "title": "MIT 18.06 Linear Algebra（Gilbert Strang）",
+      "url": "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/",
+      "note": "拓展学习：列空间、零空间、秩、行列式与线性方程。本文算例和推导为本案例自行构造。"
+    },
+    {
+      "id": "numpy-cond",
+      "title": "NumPy：numpy.linalg.cond",
+      "url": "https://numpy.org/doc/stable/reference/generated/numpy.linalg.cond.html",
+      "note": "条件数的范数定义与二范数约定。本文的 sI 反例由该定义直接计算。"
+    },
+    {
+      "id": "numpy-pinv",
+      "title": "NumPy：numpy.linalg.pinv",
+      "url": "https://numpy.org/doc/stable/reference/generated/numpy.linalg.pinv.html",
+      "note": "Moore–Penrose 伪逆、SVD 和数值截断参数；截断是额外数值约定，不是恢复信息。"
+    },
+    {
+      "id": "unity-inverse",
+      "title": "Unity 6.0：Matrix4x4.inverse",
+      "url": "https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Matrix4x4-inverse.html",
+      "note": "核查原文的零行列式返回 Matrix4x4.zero 契约。"
+    },
+    {
+      "id": "unity-parent",
+      "title": "Unity 6.0：Transform.SetParent",
+      "url": "https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Transform.SetParent.html",
+      "note": "worldPositionStays 的含义与默认 true；不据此声称奇异父级的具体运行结果。"
+    },
+    {
+      "id": "unity-scale",
+      "title": "Unity 6.0：Transform.lossyScale",
+      "url": "https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Transform-lossyScale.html",
+      "note": "父缩放与子旋转造成斜切，三分量缩放的表示限制。"
+    }
+  ]
+}
