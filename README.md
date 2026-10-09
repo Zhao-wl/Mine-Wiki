@@ -1,5 +1,7 @@
 # Mine-Wiki
 
+**在线阅读 / 网页首页：** [https://zhao-wl.github.io/Mine-Wiki/](https://zhao-wl.github.io/Mine-Wiki/)
+
 从实际问题出发，按前置知识循序补习的中文学习案例。页面为静态文件，无账户、无统计、无远程运行依赖。
 
 ## 学习案例
