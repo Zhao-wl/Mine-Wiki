@@ -3,7 +3,7 @@ on:
   push:
     branches: ['learning/**']
   pull_request:
-    paths: ['lessons/**', 'index.html', 'README.md', '.github/workflows/lesson-checks.yml']
+    paths: ['content/**', 'assets/**', 'scripts/**', 'tests/**', 'knowledge/**', 'topics/**', 'lessons/**', 'index.html', 'README.md', '.github/workflows/lesson-checks.yml']
 permissions:
   contents: read
 jobs:
@@ -16,7 +16,10 @@ jobs:
           node-version: '22'
       - name: Math branches and numerical cases
         run: node --test lessons/zero-scale/tests/math.test.js
-      - name: Static artifacts, local links and reproducible course build
-        run: python3 lessons/zero-scale/tests/static_test.py
-      - name: Generated outputs unchanged
-        run: git diff --exit-code -- lessons/zero-scale
+      - name: Content graph, references, states and compatibility
+        run: |
+          python3 tests/content_test.py
+          python3 tests/aesthetics_content_test.py
+          node --check assets/aesthetics.js
+      - name: Generated pages match their single source
+        run: python3 scripts/build_site.py --check

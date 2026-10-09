@@ -1,0 +1,32 @@
+{
+  "id": "aesthetics-observation",
+  "status": "ready",
+  "title": "第一单元 · 观察、解释与偏好",
+  "subtitle": "从一个间隔和一个标题开始，让审美判断有可回查的理由。",
+  "summary": "练习事实、推断、偏好与预测的分离；再把形式与语境接回软件、游戏和跨媒介观察。",
+  "goals": [
+    "给同一画面写出至少两种有证据的解释。",
+    "改变一个变量，先预测再比较，并说明结论的边界。",
+    "把功能、表达与个人偏好分开，留下一个待核实背景问题。"
+  ],
+  "steps": [
+    {
+      "node": "observation-interpretation-preference",
+      "bridge": "完成后返回学习地图，查看下一阶段的范围；其余节点尚待建设，不作为已完成课程。"
+    }
+  ],
+  "checklist": [
+    "能指出证据的位置与观看条件吗？",
+    "能为同一画面保留另一种解释吗？",
+    "预测有没有可记录的结果与失败条件？",
+    "功能、表达、偏好有没有分开？",
+    "是否把未知背景保留为待核实问题？"
+  ],
+  "sources": [
+    "loc-analysis",
+    "hokusai-met",
+    "hokusai-material",
+    "neurath-reading",
+    "neurath-science"
+  ]
+}

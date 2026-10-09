@@ -1,0 +1,125 @@
+{
+  "id": "zero-scale",
+  "status": "ready",
+  "title": "缩放为零之后，坐标去了哪里？",
+  "subtitle": "从一支箭头开始，重新理解父子变换与换父节点",
+  "summary": "父节点某轴缩放为零时，换父或换挂点究竟在求什么？沿完整知识链理解可解性、误差与表示边界。",
+  "example": "zero-scale",
+  "goals": [
+    "独立写出保持局部与保持世界的方程。",
+    "区分旧父奇异与新父奇异，判断无解、多解和唯一解。",
+    "分开位置、完整矩阵、TRS 表示及具体引擎行为。"
+  ],
+  "steps": [
+    {
+      "node": "point-vector",
+      "legacy_anchor": "points",
+      "bridge": "既然同一支箭头能用数字表达，下一步就要问：这些数字是相对于哪两把‘尺子’？"
+    },
+    {
+      "node": "basis-coordinates",
+      "legacy_anchor": "basis",
+      "bridge": "把两支变换后的基箭头按列排在一起，就得到了矩阵。"
+    },
+    {
+      "node": "matrix-linear-map",
+      "legacy_anchor": "columns",
+      "bridge": "一个矩阵可以由多个操作组成。下一节追踪箭头，看看执行顺序为什么不能随意交换。"
+    },
+    {
+      "node": "transform-composition",
+      "legacy_anchor": "order",
+      "bridge": "到目前为止平移都另写一个加号。齐次坐标可以把它纳入同一次矩阵乘法。"
+    },
+    {
+      "node": "affine-homogeneous",
+      "legacy_anchor": "affine",
+      "bridge": "把每一层局部坐标到上一层的仿射矩阵连乘，就得到父子变换。"
+    },
+    {
+      "node": "local-world-transforms",
+      "legacy_anchor": "hierarchy",
+      "bridge": "从世界地址反查局部地址，就需要逆。先理解什么信息可恢复，再讨论如何计算。"
+    },
+    {
+      "node": "invertibility-information",
+      "legacy_anchor": "inverse",
+      "bridge": "精确零讨论有没有唯一解；接近零还可能有解，但输入误差会被放大。两件事需要分开。"
+    },
+    {
+      "node": "numerical-conditioning",
+      "legacy_anchor": "precision",
+      "bridge": "现在把前面所有工具带回换父节点：要反求哪一层？保持的是哪个量？"
+    },
+    {
+      "node": "reparenting-equations",
+      "legacy_anchor": "reparent",
+      "bridge": "先确认保持目标，再检查新父的可逆性与像空间，最后检查数值精度和表示能力。课程到这里提供判断依据，不替项目选择修复策略。"
+    }
+  ],
+  "api": [
+    {
+      "title": "数学结论",
+      "text": "精确零缩放可能使父级线性部分奇异；不存在对所有目标都有效的唯一逆。直接套用含 1/s 的数学公式在 s=0 时没有定义。这个结论不能推出某引擎一定崩溃或产生 NaN。"
+    },
+    {
+      "title": "Unity 6.0 API 契约",
+      "text": "Matrix4x4.inverse 文档明确说明：行列式为零不能求逆，尝试时返回 Matrix4x4.zero。这个全零矩阵是 API 的返回约定，不是数学意义上的逆，也不是本课 M₀。",
+      "source": "unity-inverse"
+    },
+    {
+      "title": "SetParent 的已知与未知",
+      "text": "Unity 6.0 SetParent 文档给出的 worldPositionStays 默认值为 true，并描述保持世界位置、旋转和缩放的意图；该页没有规定奇异父级时的具体结果。本环境没有 Unity 运行时，未实测，不能由 Matrix4x4.inverse 的契约推断 SetParent 内部调用或结果。",
+      "source": "unity-parent"
+    },
+    {
+      "title": "TRS 与剪切",
+      "text": "Unity lossyScale 文档提醒父缩放和子旋转可能造成斜切，三个缩放分量无法精确表达一般情况。这里的完整矩阵等式是数学学习目标，不应与 SetParent 对 TRS 的描述直接画等号。",
+      "source": "unity-scale"
+    }
+  ],
+  "advanced": {
+    "title": "进阶：等秩为什么仍不够？零旧父与 TRS 又如何分开？",
+    "paragraphs": [
+      "rank(B)≤rank(A) 只是必要条件。例如 A=diag(0,1)，B=diag(1,0)，两者秩都为 1，但 B 的第一列 (1,0) 不在 A 的竖直列空间中，AC=B 无解。必须看每列落在哪个子空间。",
+      "再取旧父 diag(0,1)，子旋转 45°，新父 I。唯一的新局部线性矩阵是 [[0,0],[1/√2,1/√2]]。两列非零且共线；单个 R·diag(sx,sy) 的非零列必须正交，所以这个矩阵无法写成该形式。它作为仿射矩阵有解，却无法无损表示成单个无剪切 TRS。",
+      "另一个快速反例：新父 F(x,y)=(10,y)。位置 (10,2) 的解是 (任意 x,2)，(11,2) 无解；即使原点能到 (10,2)，B=I 的完整物体也无法保持，因为新父不能产生水平位移。不要把 lossyScale 逐轴相除当成通用换父算法。"
+    ]
+  },
+  "checklist": [
+    "目标是保持局部、仅世界位置，还是完整世界矩阵？",
+    "使用的父矩阵是否包括祖先和挂点？新父是否奇异？",
+    "目标平移与各列是否可达？回代残差是多少？",
+    "可解矩阵能否由该 API 的 TRS 表示？是否出现剪切？",
+    "浮点精度与可接受误差是什么？引擎版本和实测结果是什么？"
+  ],
+  "sources": [
+    "mit",
+    "numpy-cond",
+    "numpy-pinv",
+    "unity-inverse",
+    "unity-parent",
+    "unity-scale"
+  ],
+  "legacy_storage": {
+    "key": "mine-wiki.zero-scale.v1",
+    "mastery_map": {
+      "points": "point-vector",
+      "basis": "basis-coordinates",
+      "columns": "matrix-linear-map",
+      "order": "transform-composition",
+      "affine": "affine-homogeneous",
+      "hierarchy": "local-world-transforms",
+      "inverse": "invertibility-information",
+      "precision": "numerical-conditioning",
+      "reparent": "reparenting-equations"
+    }
+  },
+  "historical_media": {
+    "video": "lessons/zero-scale/media/lesson-zh.mp4",
+    "captions": "lessons/zero-scale/media/lesson-zh.vtt",
+    "srt": "lessons/zero-scale/media/lesson-zh.srt",
+    "poster": "lessons/zero-scale/media/poster.jpg",
+    "transcript": "lessons/zero-scale/media/transcript.md"
+  }
+}

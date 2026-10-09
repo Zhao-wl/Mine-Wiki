@@ -1,0 +1,181 @@
+{
+  "items": [
+    {
+      "id": "linear-algebra",
+      "title": "线性代数",
+      "summary": "从向量的几何意义，到矩阵、可逆性与误差。让每个符号有可以追踪的含义。",
+      "nodes": [
+        "point-vector",
+        "basis-coordinates",
+        "matrix-linear-map",
+        "transform-composition",
+        "affine-homogeneous",
+        "invertibility-information",
+        "numerical-conditioning"
+      ],
+      "paths": [
+        "zero-scale"
+      ]
+    },
+    {
+      "id": "graphics-transforms",
+      "title": "图形学与坐标变换",
+      "summary": "把数学放回局部、父级与世界空间，理解变换链与引擎表示之间的边界。",
+      "nodes": [
+        "point-vector",
+        "basis-coordinates",
+        "matrix-linear-map",
+        "transform-composition",
+        "affine-homogeneous",
+        "local-world-transforms",
+        "numerical-conditioning",
+        "reparenting-equations"
+      ],
+      "paths": [
+        "zero-scale"
+      ]
+    },
+    {
+      "id": "aesthetics",
+      "title": "审美系统化学习地图",
+      "summary": "从观察判断到综合设计：共通基础、跨领域研究、软件与游戏应用。先学会提出有证据的判断，再逐步深化迁移。",
+      "nodes": [
+        "observation-interpretation-preference",
+        "perception-attention",
+        "form-composition",
+        "color-light",
+        "material-texture",
+        "space-body",
+        "time-rhythm",
+        "narrative-symbol",
+        "aesthetic-critique",
+        "nature-observation",
+        "architecture-gardens",
+        "pictorial-arts",
+        "photo-moving-image",
+        "clothing-textiles",
+        "industrial-craft",
+        "information-design",
+        "software-aesthetics",
+        "game-aesthetics",
+        "integrated-aesthetic-design"
+      ],
+      "paths": [
+        "aesthetics-observation"
+      ],
+      "learning_map": {
+        "orientation": "主要应用是软件与游戏开发，也系统接触自然、建筑园林、绘画书法雕塑、摄影影像、服装织物、工业工艺与平面信息设计。目标是跨领域观察与迁移，不要求每门专业精通。先完成第一单元；后续范围已登记，正文尚未建设。",
+        "layers": [
+          {
+            "id": "foundations",
+            "title": "共通基础",
+            "summary": "建立观察、组织与判断的共同语言。历史问题：某种形式在何时何地、用什么材料、为谁组织？不把习惯看作永恒标准。",
+            "nodes": [
+              "observation-interpretation-preference",
+              "perception-attention",
+              "form-composition",
+              "color-light",
+              "material-texture",
+              "space-body",
+              "time-rhythm",
+              "narrative-symbol",
+              "aesthetic-critique"
+            ]
+          },
+          {
+            "id": "research",
+            "title": "跨领域研究",
+            "summary": "带着共同问题比较不同媒介。每个案例追踪制作与使用者、地点年代、材料技术和观看用途；不以单线进步史替代具体条件。",
+            "nodes": [
+              "nature-observation",
+              "architecture-gardens",
+              "pictorial-arts",
+              "photo-moving-image",
+              "clothing-textiles",
+              "industrial-craft",
+              "information-design"
+            ]
+          },
+          {
+            "id": "applications",
+            "title": "软件与游戏应用",
+            "summary": "从第一课开始练习，不等学完艺术史再制作。研究产品和游戏的制作条件、使用情境与表达传统，再检验迁移边界。",
+            "nodes": [
+              "software-aesthetics",
+              "game-aesthetics",
+              "integrated-aesthetic-design"
+            ]
+          }
+        ],
+        "stages": [
+          {
+            "id": "seeing",
+            "title": "看清组织",
+            "summary": "先练四栏记录，再研究注意与构图。第一单元已可学习；软件导航与游戏立柱练习从这里开始。",
+            "nodes": [
+              "observation-interpretation-preference",
+              "perception-attention",
+              "form-composition"
+            ],
+            "practice": "软件：描述六项导航的组织。游戏：对同一立柱画面写两种节奏解释。"
+          },
+          {
+            "id": "surface",
+            "title": "色光材料",
+            "summary": "研究颜色关系、照明、表面与工艺，比较屏幕和实物的条件。",
+            "nodes": [
+              "color-light",
+              "material-texture",
+              "nature-observation",
+              "clothing-textiles",
+              "industrial-craft"
+            ],
+            "practice": "待建设：制作一组材料/光照对照，说明屏幕模拟与实物体验的差异。"
+          },
+          {
+            "id": "embodied",
+            "title": "空间身体时间",
+            "summary": "把视点、行走、运动与停顿接到空间和影像。",
+            "nodes": [
+              "space-body",
+              "time-rhythm",
+              "architecture-gardens",
+              "photo-moving-image"
+            ],
+            "practice": "待建设：用软件流程和游戏路线记录视点、停顿与节奏。"
+          },
+          {
+            "id": "transfer",
+            "title": "深化跨领域迁移",
+            "summary": "比较符号、媒介和历史条件，说明能迁移什么、不能迁移什么。",
+            "nodes": [
+              "narrative-symbol",
+              "pictorial-arts",
+              "information-design",
+              "aesthetic-critique"
+            ],
+            "practice": "待建设：用同一问题比较书页、界面与游戏图鉴，保留不适用之处。"
+          },
+          {
+            "id": "design",
+            "title": "综合设计",
+            "summary": "围绕具体目标做原型、比较、批评和复盘；理由与偏好都可以修订。",
+            "nodes": [
+              "software-aesthetics",
+              "game-aesthetics",
+              "integrated-aesthetic-design"
+            ],
+            "practice": "待建设：完成软件或游戏小项目，记录证据、表达取舍和后续检验。"
+          }
+        ],
+        "history_questions": [
+          "谁制作、谁使用或观看？作者、作坊、出版者和使用者是否有不同角色？",
+          "何时、何地？今天的观看条件与当时有哪些差异？",
+          "什么材料与技术允许这种形式？屏幕图像省略了什么？",
+          "用于什么？宗教、日常、纪念、娱乐、教育或商业目的如何影响解释？",
+          "依据来自馆藏、原始文献、研究还是自己的推断？还有什么待核实？"
+        ]
+      }
+    }
+  ]
+}

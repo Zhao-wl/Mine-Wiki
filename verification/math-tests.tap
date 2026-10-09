@@ -1,0 +1,130 @@
+TAP version 13
+# Subtest: shared canonical example: F₂(1,1)=(2,4), point vs vector
+ok 1 - shared canonical example: F₂(1,1)=(2,4), point vs vector
+  ---
+  duration_ms: 2.322765
+  type: 'test'
+  ...
+# Subtest: matrix columns, RS vs SR and rightmost first
+ok 2 - matrix columns, RS vs SR and rightmost first
+  ---
+  duration_ms: 0.21515
+  type: 'test'
+  ...
+# Subtest: hierarchy includes ancestors and transforms the child translation
+ok 3 - hierarchy includes ancestors and transforms the child translation
+  ---
+  duration_ms: 0.458042
+  type: 'test'
+  ...
+# Subtest: exact zero inverse problem: unreachable vs whole affine family
+ok 4 - exact zero inverse problem: unreachable vs whole affine family
+  ---
+  duration_ms: 0.166518
+  type: 'test'
+  ...
+# Subtest: old singular / new invertible: complete matrix is uniquely recoverable
+ok 5 - old singular / new invertible: complete matrix is uniquely recoverable
+  ---
+  duration_ms: 0.392854
+  type: 'test'
+  ...
+# Subtest: new singular / old invertible: position unreachable
+ok 6 - new singular / old invertible: position unreachable
+  ---
+  duration_ms: 0.2955
+  type: 'test'
+  ...
+# Subtest: position reachable but complete matrix impossible
+ok 7 - position reachable but complete matrix impossible
+  ---
+  duration_ms: 0.241169
+  type: 'test'
+  ...
+# Subtest: both singular with matching image: independent column and position freedoms
+ok 8 - both singular with matching image: independent column and position freedoms
+  ---
+  duration_ms: 0.578241
+  type: 'test'
+  ...
+# Subtest: both singular but displaced images: no solution
+ok 9 - both singular but displaced images: no solution
+  ---
+  duration_ms: 0.284964
+  type: 'test'
+  ...
+# Subtest: keep-local remains a finite forward product with either/both zero parents
+ok 10 - keep-local remains a finite forward product with either/both zero parents
+  ---
+  duration_ms: 0.989733
+  type: 'test'
+  ...
+# Subtest: equal rank is insufficient when column spaces differ
+ok 11 - equal rank is insufficient when column spaces differ
+  ---
+  duration_ms: 0.252446
+  type: 'test'
+  ...
+# Subtest: F(x,y)=(10,y): position family vs no solution, full I impossible
+ok 12 - F(x,y)=(10,y): position family vs no solution, full I impossible
+  ---
+  duration_ms: 4.385374
+  type: 'test'
+  ...
+# Subtest: rank zero: only translation point reachable
+ok 13 - rank zero: only translation point reachable
+  ---
+  duration_ms: 0.209672
+  type: 'test'
+  ...
+# Subtest: unique affine solution does not imply single no-shear TRS representation
+ok 14 - unique affine solution does not imply single no-shear TRS representation
+  ---
+  duration_ms: 0.151105
+  type: 'test'
+  ...
+# Subtest: near zero is never silently clamped to zero
+ok 15 - near zero is never silently clamped to zero
+  ---
+  duration_ms: 0.334437
+  type: 'test'
+  ...
+# Subtest: condition number versus absolute amplification, including negative s
+ok 16 - condition number versus absolute amplification, including negative s
+  ---
+  duration_ms: 0.472012
+  type: 'test'
+  ...
+# Subtest: float32 can erase increment before inverse, independent of injected noise
+ok 17 - float32 can erase increment before inverse, independent of injected noise
+  ---
+  duration_ms: 0.123323
+  type: 'test'
+  ...
+# Subtest: pseudoinverse example selects a solution but cannot recover lost x
+ok 18 - pseudoinverse example selects a solution but cannot recover lost x
+  ---
+  duration_ms: 0.21528
+  type: 'test'
+  ...
+# Subtest: all controlled old/new branches reconstruct exactly when a solution exists
+ok 19 - all controlled old/new branches reconstruct exactly when a solution exists
+  ---
+  duration_ms: 1.849622
+  type: 'test'
+  ...
+# Subtest: course has all nine prerequisite stages with nonempty examples and answers
+ok 20 - course has all nine prerequisite stages with nonempty examples and answers
+  ---
+  duration_ms: 0.188821
+  type: 'test'
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 78.22549

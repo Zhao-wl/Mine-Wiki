@@ -1,0 +1,28 @@
+✔ shared canonical example: F₂(1,1)=(2,4), point vs vector (5.037851ms)
+✔ matrix columns, RS vs SR and rightmost first (0.21735ms)
+✔ hierarchy includes ancestors and transforms the child translation (0.452637ms)
+✔ exact zero inverse problem: unreachable vs whole affine family (0.168017ms)
+✔ old singular / new invertible: complete matrix is uniquely recoverable (0.324888ms)
+✔ new singular / old invertible: position unreachable (0.233254ms)
+✔ position reachable but complete matrix impossible (0.180856ms)
+✔ both singular with matching image: independent column and position freedoms (0.293472ms)
+✔ both singular but displaced images: no solution (0.147647ms)
+✔ keep-local remains a finite forward product with either/both zero parents (0.552334ms)
+✔ equal rank is insufficient when column spaces differ (0.180676ms)
+✔ F(x,y)=(10,y): position family vs no solution, full I impossible (1.332392ms)
+✔ rank zero: only translation point reachable (0.173185ms)
+✔ unique affine solution does not imply single no-shear TRS representation (0.204732ms)
+✔ near zero is never silently clamped to zero (0.212382ms)
+✔ condition number versus absolute amplification, including negative s (0.245592ms)
+✔ float32 can erase increment before inverse, independent of injected noise (0.085406ms)
+✔ pseudoinverse example selects a solution but cannot recover lost x (0.160396ms)
+✔ all controlled old/new branches reconstruct exactly when a solution exists (1.850786ms)
+✔ course has all nine prerequisite stages with nonempty examples and answers (0.177241ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 70.72253
