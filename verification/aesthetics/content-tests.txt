@@ -1,0 +1,33 @@
+test_all_generated_links_and_fragments (__main__.ContentTests.test_all_generated_links_and_fragments) ... ok
+test_bad_anchor (__main__.ContentTests.test_bad_anchor) ... ok
+test_build_outputs_current_and_deterministic (__main__.ContentTests.test_build_outputs_current_and_deterministic) ... ok
+test_current_catalog (__main__.ContentTests.test_current_catalog) ... ok
+test_draft_path_discloses_missing_content (__main__.ContentTests.test_draft_path_discloses_missing_content) ... ok
+test_duplicate_stable_id (__main__.ContentTests.test_duplicate_stable_id) ... ok
+test_legacy_map_cannot_drop_old_records (__main__.ContentTests.test_legacy_map_cannot_drop_old_records) ... ok
+test_missing_prerequisite_is_not_silently_skipped (__main__.ContentTests.test_missing_prerequisite_is_not_silently_skipped) ... ok
+test_nonformula_ready_still_needs_explanation_example_and_check (__main__.ContentTests.test_nonformula_ready_still_needs_explanation_example_and_check) ... ok
+test_old_urls_and_section_anchors_remain (__main__.ContentTests.test_old_urls_and_section_anchors_remain) ... ok
+test_optional_fields_are_checked_when_provided (__main__.ContentTests.test_optional_fields_are_checked_when_provided) ... ok
+test_prerequisite_cycle (__main__.ContentTests.test_prerequisite_cycle) ... ok
+test_prerequisite_page_anchor_keeps_canonical_link (__main__.ContentTests.test_prerequisite_page_anchor_keeps_canonical_link) ... ok
+test_prerequisite_reason_required (__main__.ContentTests.test_prerequisite_reason_required) ... ok
+test_ready_nonformula_unit_builds_without_numeric_assets (__main__.ContentTests.test_ready_nonformula_unit_builds_without_numeric_assets) ... ok
+test_ready_path_checks_prerequisite_order (__main__.ContentTests.test_ready_path_checks_prerequisite_order) ... ok
+test_ready_path_requires_ready_steps (__main__.ContentTests.test_ready_path_requires_ready_steps) ... ok
+test_ready_requires_complete_teaching_unit (__main__.ContentTests.test_ready_requires_complete_teaching_unit) ... ok
+test_reference_to_absent_formula_anchor_fails (__main__.ContentTests.test_reference_to_absent_formula_anchor_fails) ... ok
+test_related_cycles_are_not_prerequisites (__main__.ContentTests.test_related_cycles_are_not_prerequisites) ... ok
+test_reverse_usage_is_derived (__main__.ContentTests.test_reverse_usage_is_derived) ... ok
+test_same_source_updates_node_and_continuous_path (__main__.ContentTests.test_same_source_updates_node_and_continuous_path) ... ok
+test_stub_is_explicit_and_linkable (__main__.ContentTests.test_stub_is_explicit_and_linkable) ... ok
+test_unknown_citation (__main__.ContentTests.test_unknown_citation) ... ok
+test_unknown_lab (__main__.ContentTests.test_unknown_lab) ... ok
+test_unknown_reference (__main__.ContentTests.test_unknown_reference) ... ok
+test_valid_section_reference (__main__.ContentTests.test_valid_section_reference) ... ok
+test_webpages_do_not_require_video (__main__.ContentTests.test_webpages_do_not_require_video) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.154s
+
+OK

@@ -38,9 +38,12 @@ def render_site(c):
     def shell(page,title,hero,body,rail='',scope='',count=0):
         nav=''.join(link(page,topic_url(k),t['title']) for k,t in c['topics'].items())
         cfg=json.dumps(config,ensure_ascii=False).replace('<','\\u003c')
+        aesthetic_nodes=c['topics'].get('aesthetics',{}).get('nodes',[])
+        aesthetic=page==topic_url('aesthetics') or any(page==node_url(n) for n in aesthetic_nodes) or any(page==path_url(p) for p in c['topics'].get('aesthetics',{}).get('paths',[]))
+        enhancement=f'<script src="{relative(page,"assets/aesthetics.js")}" defer></script>' if 'id="lab-aesthetic"' in body else ''
         return f'''<!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Mine-Wiki：关联前置知识，从问题出发逐步理解。静态离线交互学习。"><title>{E(title)} · Mine-Wiki</title><link rel="stylesheet" href="{relative(page,'assets/styles.css')}"><script src="{relative(page,'assets/math.js')}" defer></script><script src="{relative(page,'assets/app.js')}" defer></script></head>
-<body data-record-scope="{E(scope)}"><script type="application/json" id="learning-config">{cfg}</script><a class="skip" href="#course-start">跳到正文</a><header class="topbar">{link(page,'index.html','MINE / WIKI','brand')}<nav class="top-links" aria-label="主题">{nav}</nav></header>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Mine-Wiki：关联前置知识，从问题出发逐步理解。静态离线交互学习。"><title>{E(title)} · Mine-Wiki</title><link rel="stylesheet" href="{relative(page,'assets/styles.css')}"><script src="{relative(page,'assets/math.js')}" defer></script><script src="{relative(page,'assets/app.js')}" defer></script>{enhancement}</head>
+<body{' class="aesthetics-page"' if aesthetic else ''} data-record-scope="{E(scope)}"><script type="application/json" id="learning-config">{cfg}</script><a class="skip" href="#course-start">跳到正文</a><header class="topbar">{link(page,'index.html','MINE / WIKI','brand')}<nav class="top-links" aria-label="主题">{nav}</nav></header>
 {hero}<div class="layout{' catalog-layout' if not rail else ''}">{('<nav class="rail" aria-label="本页导航">'+rail+progress(count)+'</nav>') if rail else ''}<main id="course-start">{body}<noscript><p class="callout">JavaScript 已关闭。正文、图解、练习答案和实验静态后备仍可阅读；交互与本地记录不可用。</p></noscript></main></div><footer>Mine-Wiki · 从问题出发，持续修订理解。内容可离线阅读；学习记录保存在本机。外部资料只在主动打开链接时访问。</footer></body></html>\n'''
     def hero(label,title,summary,extra='',art=False):
         figure=f'<figure>{(ROOT/"lessons/zero-scale/assets/overview.svg").read_text()}</figure>' if art else ''
@@ -52,7 +55,8 @@ def render_site(c):
         if back['required_by']:parts.append('<h3>哪些知识以此为前提</h3>'+relation_list(page,back['required_by'],reasons=True))
         if back['related']:
             explicit={r['node']:r for r in c['nodes'][key]['related']}
-            parts.append('<h3>相关延伸 · 可按需阅读</h3>'+relation_list(page,[explicit.get(n,{'node':n}) for n in back['related']]))
+            parts.append('<h3>相关延伸 · 可按需阅读</h3>'+relation_list(page,[explicit.get(n,{'node':n}) for n in back['related']],reasons=True))
+        if c['nodes'][key].get('context'):parts.append('<h3>语境关联 · 不作为必要前置</h3>'+relation_list(page,c['nodes'][key]['context'],reasons=True))
         if back['paths']:parts.append('<h3>在问题中使用</h3><ul>'+''.join('<li>'+link(page,path_url(p)+'#'+key,c['paths'][p]['title'])+'</li>' for p in back['paths'])+'</ul>')
         if back['topics']:parts.append('<p>所属主题：'+' · '.join(link(page,topic_url(t),c['topics'][t]['title']) for t in back['topics'])+'</p>')
         return ''.join(parts)
@@ -60,8 +64,10 @@ def render_site(c):
         def aid(name):return name if standalone else section_id+'--'+name
         alias=f'<span class="anchor-alias" id="{n["id"]}"></span>' if n['id']!=section_id and not standalone else ''
         req='<h3>先理解这些</h3>'+relation_list(page,n['requires'],within,True) if n['requires'] else '<p class="small">本单元不要求先阅读其他知识节点。</p>'
-        head=(f'<span class="number">{number:02}</span>' if number else '')+f'<span class="duration">约 {n.get("minutes",0)} 分钟 · {LABEL[n["status"]]}</span>'
+        duration=f'约 {n["minutes"]} 分钟 · ' if n.get('minutes') else ''
+        head=(f'<span class="number">{number:02}</span>' if number else '')+f'<span class="duration">{duration}{LABEL[n["status"]]}</span>'
         body=''
+        if n.get('question'):body+=f'<p class="learning-question">本单元的问题：{E(n["question"])}</p>'
         if n['status']!='ready':body+=f'<p class="callout">{LABEL[n["status"]]}：{E(n["summary"])}。尚不作为已完成的前置知识。</p>'
         missing=[r for r in n['requires'] if c['nodes'][r['node']]['status']!='ready']
         if missing:body+='<p class="callout">前置待补齐：'+', '.join(E(c['nodes'][r['node']]['title']) for r in missing)+'</p>'
@@ -69,31 +75,59 @@ def render_site(c):
         if n.get('formula'):body+=f'<pre class="formula" id="{aid("formula")}">{E(n["formula"])}</pre>'
         if n.get('figure'):body+=f'<figure class="diagram"><a href="{relative(page,n["figure"])}"><img src="{relative(page,n["figure"])}" alt="{E(n["title"])}"></a><figcaption>原创图解 · 点击可单独放大查看</figcaption></figure>'
         if n.get('steps'):body+=f'<h3 id="{aid("example")}">{"一步一步算" if n.get("formula") else "逐步理解与例证"}</h3><ol class="steps">'+''.join(f'<li>{E(t)}</li>' for t in n['steps'])+'</ol>'
+        if n.get('boundaries'):body+=f'<section id="{aid("boundaries")}" class="boundaries"><h3>这些判断适用到哪里</h3><ul>'+''.join(f'<li>{E(t)}</li>' for t in n['boundaries'])+'</ul></section>'
         if n.get('lab'):body+=f'<div id="{aid("experiment")}">'+labs[n['lab']]+'</div>'
+        if n.get('cases'):
+            body+=f'<section id="{aid("cases")}" class="cases"><h3>历史与跨媒介：带着条件看</h3>'
+            for case in n['cases']:
+                body+=f'<article class="case-card"><h4>{E(case["title"])}</h4>'+''.join(f'<p>{E(t)}</p>' for t in case['paragraphs'])+sources(page,case['sources'],prefix=aid('cases')+'-'+str(n['cases'].index(case))+'-')+'</article>'
+            body+='</section>'
         if n.get('exercise'):body+=f'<div class="exercise" id="{aid("exercise")}"><span class="tag">停一下 · {"自己算" if n.get("formula") else "检查理解"}</span><p>{E(n["exercise"])}</p>'+ (f'<details><summary>展开答案与理由</summary><p>{E(n["answer"])}</p></details>' if n.get('answer') else '<p>答案整理中。</p>')+'</div>'
         if n.get('sources'):body+='<p class="source">依据与延伸：'+' · '.join(f'<a href="{E(c["sources"][sid]["url"])}" target="_blank" rel="noreferrer">{E(c["sources"][sid]["title"])}</a>' for sid in n['sources'])+'</p>'
         if n['status']=='ready':body+=f'<label class="mastery"><input type="checkbox" data-mastery="{n["id"]}">我能不用看答案解释这一单元</label>'
         return f'<section class="chapter" id="{section_id}" data-node-id="{n["id"]}">{alias}<div class="chapter-head">{head}</div><h2>{E(n["title"])}</h2>{req}{body}</section>'
     def card(page,key):
-        n=c['nodes'][key];return f'<article class="node-card"><span class="status-chip">{LABEL[n["status"]]} · {n.get("minutes",0)} 分钟</span><h3>{link(page,node_url(key),n["title"].split("：")[0])}</h3><p>{E(n["summary"])}</p><p class="small">{len(n["requires"])} 项必要前置 · {len(reverse[key]["paths"])} 条问题路径使用</p></article>'
+        n=c['nodes'][key];duration=f' · {n["minutes"]} 分钟' if n.get('minutes') else '';return f'<article class="node-card" data-status="{n["status"]}"><span class="status-chip">{LABEL[n["status"]]}{duration}</span><h3>{link(page,node_url(key),n["title"].split("：")[0])}</h3><p>{E(n["summary"])}</p><p class="small">{len(n["requires"])} 项必要前置 · {len(reverse[key]["paths"])} 条问题路径使用</p></article>'
     def path_card(page,key):
-        p=c['paths'][key];return f'<article class="path-card"><span class="eyebrow">问题学习路径 · {LABEL[p["status"]]}</span><h3>{link(page,path_url(key),p["title"])}</h3><p>{E(p["summary"])}</p><p class="small">{len(p["steps"])} 个完整学习单元 · 可连续阅读，也可从熟悉的节点进入</p></article>'
+        p=c['paths'][key];ready=sum(c['nodes'][s['node']]['status']=='ready' for s in p['steps']);return f'<article class="path-card"><span class="eyebrow">问题学习路径 · {LABEL[p["status"]]}</span><h3>{link(page,path_url(key),p["title"])}</h3><p>{E(p["summary"])}</p><p class="small">{ready} 个完整学习单元'+(f' / {len(p["steps"])} 个计划单元' if ready!=len(p['steps']) else '')+' · 可连续阅读，也可从熟悉的节点进入</p></article>'
+    def learning_map(page,t):
+        m=t['learning_map'];ready=sum(c['nodes'][n]['status']=='ready' for n in t['nodes'])
+        body=f'<section class="intro"><h2>先学一个单元，再展开全图</h2><p>{E(m["orientation"])}</p><p class="map-availability">{ready} / {len(t["nodes"])} 个节点可学习 · 待补充只表示计划范围</p><div class="chips">'+''.join(link(page,path_url(p),'开始第一单元 ↗') for p in t['paths'])+'</div><p class="small">阶段表示建议节奏，不等同于必要前置。节点页分别列出必要前置、可选延伸与语境关联；待补充节点不能自评为掌握。</p></section>'
+        body+='<section class="appendix" id="stages"><h2>五个阶段，制作从第一步开始</h2><ol class="stage-list">'
+        for i,stage in enumerate(m['stages'],1):
+            body+=f'<li id="stage-{stage["id"]}"><span class="stage-number">{i:02}</span><div><h3>{E(stage["title"])}</h3><p>{E(stage["summary"])}</p><p class="small">{E(stage["practice"])}</p><ul class="stage-nodes">'+''.join(f'<li>{node_link(page,{"node":n})} <span class="status-chip">{LABEL[c["nodes"][n]["status"]]}</span></li>' for n in stage['nodes'])+'</ul></div></li>'
+        body+='</ol></section>'
+        for i,layer in enumerate(m['layers'],1):
+            body+=f'<section class="appendix map-layer" id="layer-{layer["id"]}"><span class="eyebrow">LAYER {i:02}</span><h2>{E(layer["title"])}</h2><p>{E(layer["summary"])}</p><div class="card-grid">'+''.join(card(page,n) for n in layer['nodes'])+'</div></section>'
+        body+='<section class="appendix" id="history"><h2>历史穿过每一层</h2><p>比较具体条件与选择，允许并行传统与多种价值，不排列一条越来越好的风格阶梯。</p><ul>'+''.join(f'<li>{E(q)}</li>' for q in m['history_questions'])+'</ul></section>'
+        return body
     page='index.html'
-    topic_cards=''.join(f'<article class="node-card"><h3>{link(page,topic_url(k),t["title"])}</h3><p>{E(t["summary"])}</p><p class="small">{len(t["nodes"])} 个知识节点</p></article>' for k,t in c['topics'].items())
+    topic_cards=''
+    for k,t in c['topics'].items():
+        availability=f'{len(t["nodes"])} 个知识节点'
+        if t.get('learning_map'):availability=f'{sum(c["nodes"][n]["status"]=="ready" for n in t["nodes"])} 个可学习 · {len(t["nodes"])} 个规划节点，其余待补充'
+        topic_cards+=f'<article class="node-card{" map-entry" if t.get("learning_map") else ""}"><h3>{link(page,topic_url(k),t["title"])}</h3><p>{E(t["summary"])}</p><p class="small">{availability}</p></article>'
     body='<section class="intro"><h2>沿主题找知识</h2><p>同一节点可以出现在多个主题和问题里。解释、算例与自评随节点复用。</p><div class="card-grid">'+topic_cards+'</div></section><section class="appendix"><h2>带着一个问题开始</h2>'+''.join(path_card(page,k) for k in c['paths'])+'</section>'
     out[page]=shell(page,'相互连接的学习笔记',hero('LEARN · CONNECT · REVISIT','从一个问题，走向相互连接的理解。','把前提弄清，把过程算明白。每次学习都能复用已有知识，并留下下一次追问的入口。'),body)
     for key,t in c['topics'].items():
         page=topic_url(key);body='<section class="intro"><h2>知识节点</h2><p>需要补哪一段，就从哪一段开始。节点页会列出必要前置和继续使用它的地方。</p><div class="card-grid">'+''.join(card(page,n) for n in t['nodes'])+'</div></section><section class="appendix"><h2>相关问题路径</h2>'+''.join(path_card(page,p) for p in t['paths'])+'</section>'
+        if t.get('learning_map'):body=learning_map(page,t)
         out[page]=shell(page,t['title'],hero('主题导航',t['title'],t['summary']),body)
     for key,n in c['nodes'].items():
         page=node_url(key);body='<section class="intro">'+(example(n['example']) if n.get('example') else '')+'</section>'+content(page,n,'overview',True)+'<section class="appendix" id="connections"><h2>把这段理解接到别处</h2>'+connections(page,key)+'</section>'+note_box()+f'<section class="appendix" id="references"><h2>引用资料</h2>{sources(page,n.get("sources",[]))}</section>'
-        rail='<div class="label">一个完整学习单元</div><ol>'+''.join(f'<li><a href="#{a}">{title}</a></li>' for a,title in [('overview','从这里开始'),('intuition','直觉'),('example','逐步算例' if n.get('formula') else '例证与推演'),('experiment','交互实验'),('exercise','练习与答案'),('connections','前后关联'),('notes','我的疑问')] if a in anchors(n))+'</ol>'
+        rail=f'<div class="label">{"一个完整学习单元" if n["status"]=="ready" else "计划节点 · 正文待补充"}</div><ol>'+''.join(f'<li><a href="#{a}">{title}</a></li>' for a,title in [('overview','从这里开始'),('intuition','直觉'),('example','逐步算例' if n.get('formula') else '例证与推演'),('boundaries','适用边界'),('experiment','交互实验'),('cases','历史与跨媒介'),('exercise','练习与答案'),('connections','前后关联'),('notes','我的疑问')] if a in anchors(n))+'</ol>'
         out[page]=shell(page,n['title'],hero('知识节点 · '+LABEL[n['status']],n['title'],n['summary']),body,rail,'node:'+key,1 if n['status']=='ready' else 0)
     for key,p in c['paths'].items():
         page=path_url(key);within={s['node']:s.get('legacy_anchor',s['node']) for s in p['steps']}
-        rail='<div class="label">按问题串起知识</div><ol>'+''.join(f'<li><a href="#{within[s["node"]]}">{i:02d} · {E(c["nodes"][s["node"]]["title"].split("：")[0])}</a></li>' for i,s in enumerate(p['steps'],1))+'<li><a href="#api">应用与引擎边界</a></li><li><a href="#references">引用资料</a></li></ol>'
+        zero=key=='zero-scale';boundary_title='数学结论与引擎行为的边界' if zero else '迁移到作品与项目'
+        rail='<div class="label">按问题串起知识</div><ol>'+''.join(f'<li><a href="#{within[s["node"]]}">{i:02d} · {E(c["nodes"][s["node"]]["title"].split("：")[0])}</a></li>' for i,s in enumerate(p['steps'],1))+f'<li><a href="#api">{"应用与引擎边界" if zero else boundary_title}</a></li><li><a href="#references">引用资料</a></li></ol>'
+        if not zero:
+            rail='<div class="label">本页学习节奏</div><ol>'+''.join(f'<li><a href="#{within[s["node"]]}{("--"+anchor) if anchor!="overview" else ""}">{label}</a></li>' for s in p['steps'] for anchor,label in [('overview','问题与原理'),('example','练习步骤'),('boundaries','适用边界'),('experiment','交互实验'),('cases','历史与跨媒介'),('exercise','结课自检')] if anchor in anchors(c['nodes'][s['node']]))+'<li><a href="#notes">我的疑问</a></li></ol>'
         goals=''.join(f'<li>{E(g)}</li>' for g in p.get('goals',[]))
-        body=f'<section class="intro" id="overview"><h2>带着什么问题往下读</h2><p>{E(p["summary"])}</p><ul>{goals}</ul><p>完整阅读约 {sum(c["nodes"][s["node"]].get("minutes",0) for s in p["steps"])} 分钟，可分段完成。每节均可单独打开；这里保留同一算例和过渡，帮助连贯理解。课程提供判断依据，不替项目选择零缩放策略。</p>{example(p["example"])}</section>'
+        guidance='课程提供判断依据，不替项目选择零缩放策略。' if zero else '约 15 分钟阅读、25 分钟练习；可以分次完成。实验与节点页共用，个人记录只在浏览器本地。'
+        body=f'<section class="intro" id="overview"><h2>带着什么问题往下读</h2><p>{E(p["summary"])}</p><ul>{goals}</ul><p>{"完整阅读" if zero else "阅读与练习"}约 {sum(c["nodes"][s["node"]].get("minutes",0) for s in p["steps"])} 分钟，可分段完成。{"每节均可单独打开；这里保留同一算例和过渡，帮助连贯理解。" if zero else "本页与节点页复用相同正文与实验。"}{guidance}</p>{example(p["example"]) if p.get("example") else ""}</section>'
+        if not zero:
+            body+='<p class="map-return">'+' · '.join(link(page,topic_url(t),'← 返回'+topic['title']) for t,topic in c['topics'].items() if key in topic['paths'])+'</p>'
         if p['status']!='ready':body+='<p class="callout">这条路径仍在整理，包含的待补充节点会明确标出。</p>'
         for i,s in enumerate(p['steps'],1):
             n=c['nodes'][s['node']];body+=content(page,n,within[n['id']],number=i,within=within)
@@ -101,24 +135,27 @@ def render_site(c):
         api=''.join(f'<h3>{E(a["title"])}</h3><p>{E(a["text"])}'+(f' <a href="{E(c["sources"][a["source"]]["url"])}" target="_blank" rel="noreferrer">官方依据</a>。' if a.get('source') else '')+'</p>' for a in p.get('api',[]))
         advanced=p.get('advanced');api+=(f'<details><summary>{E(advanced["title"])}</summary>'+''.join(f'<p>{E(t)}</p>' for t in advanced['paragraphs'])+'</details>') if advanced else ''
         api+='<h3>迁移到真实项目时，先问这些问题</h3><ol>'+''.join(f'<li>{E(t)}</li>' for t in p.get('checklist',[]))+'</ol>'
-        body+='<section class="appendix" id="api"><h2>数学结论与引擎行为的边界</h2>'+api+'</section>'+note_box()
-        body+=f'<section class="appendix" id="references"><h2>引用与继续学习</h2><p class="small">资料核查日期：{E(c["checked_at"])}。Unity 链接固定在 6.0；本环境未执行 Unity 实测。</p>{sources(page,p.get("sources",[]))}</section>'
+        body+=f'<section class="appendix" id="api"><h2>{boundary_title}</h2>'+api+'</section>'+note_box()
+        reference_note=f'资料核查日期：{E(c["checked_at"])}。Unity 链接固定在 6.0；本环境未执行 Unity 实测。' if zero else '新资料核查于 2026-10-09。来源支持范围见各条说明；外链只在主动打开时访问，未复制外部图像。'
+        body+=f'<section class="appendix" id="references"><h2>引用与继续学习</h2><p class="small">{reference_note}</p>{sources(page,p.get("sources",[]))}</section>'
         if p.get('historical_media'):
             history=f'lessons/{key}/history.html'
             body+='<section class="appendix historical" id="video"><details><summary>历史辅助资料 · 按需查看</summary><p>早期视频、字幕和文字导出保留供回看。当前学习以交互网页为主，历史视频不随节点持续修订。</p><div class="chips">'+link(page,history,'历史视频与字幕')+link(page,f'lessons/{key}/course.md','本次路径的文字导出')+'</div></details></section>'
             media=p['historical_media'];hbody='<section class="intro"><h2>历史辅助资料</h2><p>此视频对应初版九节课程，配音为 eSpeak NG 中文合成音。保留作历史回看，不保证跟随当前知识节点的修订。学习请以交互网页为准。</p>'+link(history,page,'返回当前问题学习路径')+f'<video class="video" controls preload="none" playsinline poster="{relative(history,media["poster"])}"><source src="{relative(history,media["video"])}" type="video/mp4"><track kind="subtitles" srclang="zh" label="中文" src="{relative(history,media["captions"])}"></video><div class="chips">'+link(history,media['video'],'原视频 MP4')+link(history,media['srt'],'字幕 SRT')+link(history,media['transcript'],'原始逐字稿')+'</div></section>'
             out[history]=shell(history,'历史辅助资料',hero('历史存档','视频与原始讲稿','早期导读保留，交互网页是持续维护的学习入口。'),hbody)
-        out[page]=shell(page,p['title'],hero('问题学习路径 · '+LABEL[p['status']],p['title'],p['subtitle'],f'<a class="button" href="#{within[p["steps"][0]["node"]]}">沿路径开始学习 ↗</a>',True),body,rail,'path:'+key,sum(c['nodes'][s['node']]['status']=='ready' for s in p['steps']))
+        out[page]=shell(page,p['title'],hero('问题学习路径 · '+LABEL[p['status']],p['title'],p['subtitle'],f'<a class="button" href="#{within[p["steps"][0]["node"]]}">沿路径开始学习 ↗</a>',zero),body,rail,'path:'+key,sum(c['nodes'][s['node']]['status']=='ready' for s in p['steps']))
         # Legacy exports remain derived products, never a second authoring source.
-        ex=c['examples'][p['example']];chapters=[];md=[f'# {p["title"]}','本文件由知识节点与问题路径生成。交互网页是主要学习入口。',ex['conventions'],ex['formula']]
+        ex=c['examples'][p['example']] if p.get('example') else {};chapters=[];md=[f'# {p["title"]}','本文件由知识节点与问题路径生成。交互网页是主要学习入口。',ex.get('conventions',''),ex.get('formula','')]
         for i,s in enumerate(p['steps'],1):
-            n=c['nodes'][s['node']];legacy={k:n[k] for k in ['title','minutes','intuition','formula','steps','exercise','answer','lab'] if k in n};legacy.update(id=s.get('legacy_anchor',n['id']),bridge=s.get('bridge',''))
+            n=c['nodes'][s['node']];legacy={k:n[k] for k in ['title','minutes','intuition','formula','steps','exercise','answer','lab','question','boundaries','cases','context'] if k in n};legacy.update(id=s.get('legacy_anchor',n['id']),bridge=s.get('bridge',''))
             if n.get('figure'):legacy['figure']=Path(n['figure']).name
-            chapters.append(legacy);md+=[f'## {i:02d} {n["title"]}','### 直觉',*n.get('intuition',[]),'```text\n'+n.get('formula','')+'\n```','### 逐步算例',*[f'{j}. {t}' for j,t in enumerate(n.get('steps',[]),1)],'### 小练习',n.get('exercise',''),'### 答案与理由',n.get('answer',''),s.get('bridge','')]
+            chapters.append(legacy);md+=[f'## {i:02d} {n["title"]}','### 直觉',*n.get('intuition',[]),*(['```text\n'+n['formula']+'\n```'] if n.get('formula') else []),'### '+('逐步算例' if n.get('formula') else '逐步理解与例证'),*[f'{j}. {t}' for j,t in enumerate(n.get('steps',[]),1)],'### 小练习',n.get('exercise',''),'### 答案与理由',n.get('answer',''),s.get('bridge','')]
             if n.get('figure'):md.append(f'![{n["title"]}]({relative(f"lessons/{key}/course.md",n["figure"])})')
+            if n.get('boundaries'):md+=['### 适用边界',*n['boundaries']]
+            for case in n.get('cases',[]):md+=['### '+case['title'],*case['paragraphs']]
         md+=['## 应用与引擎边界',*[a['title']+'：'+a['text'] for a in p.get('api',[])],'## 引用资料',*[f'- [{c["sources"][sid]["title"]}]({c["sources"][sid]["url"]})' for sid in p.get('sources',[])]]
         out[f'lessons/{key}/course.md']='\n\n'.join(md)+'\n'
-        out[f'lessons/{key}/course.json']=json.dumps({'_generated':'Do not edit; generated from content/nodes and content/paths.','title':p['title'],'subtitle':p['subtitle'],'conventions':ex['conventions'],'facts':ex['facts'],'chapters':chapters,'api':p.get('api',[]),'sources':[c['sources'][sid] for sid in p.get('sources',[])]},ensure_ascii=False,indent=2)+'\n'
+        out[f'lessons/{key}/course.json']=json.dumps({'_generated':'Do not edit; generated from content/nodes and content/paths.','title':p['title'],'subtitle':p['subtitle'],'conventions':ex.get('conventions',''),'facts':ex.get('facts',{}),'chapters':chapters,'api':p.get('api',[]),'sources':[c['sources'][sid] for sid in p.get('sources',[])]},ensure_ascii=False,indent=2)+'\n'
     # Keep old asset URLs functional. Canonical shared code lives under assets/.
     for name in ['math.js','app.js','styles.css','labs.html']:out['lessons/zero-scale/'+name]=(ROOT/'assets'/name).read_text()
     return out

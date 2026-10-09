@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """End-to-end checks using installed Chromium/Playwright; local server only."""
-import json,sys,threading,http.server,functools
+import json,sys,threading,http.server,functools,os
 from pathlib import Path
 from playwright.sync_api import sync_playwright
-REPO=Path(__file__).resolve().parents[1];ROOT=REPO/'lessons/zero-scale';OUT=REPO/'verification';OUT.mkdir(exist_ok=True)
+REPO=Path(__file__).resolve().parents[1];ROOT=REPO/'lessons/zero-scale';OUT=Path(os.environ.get('MINE_WIKI_BROWSER_OUT',str(REPO/'verification')));OUT.mkdir(parents=True,exist_ok=True)
 sys.path.insert(0,str(ROOT/'scripts'))
 from preview import RangeHandler
 class QuietHandler(RangeHandler):
@@ -79,7 +79,7 @@ with sync_playwright() as pw:
     catalog=json.loads((REPO/'content/paths/zero-scale.json').read_text());nodes=[s['node'] for s in catalog['steps']]
     base=url.split('/lessons/')[0]
     page.goto(base+'/index.html');page.screenshot(path=str(OUT/'home-desktop.png'))
-    ok('home has two topic entries',page.locator('.card-grid .node-card').count()==2)
+    ok('home includes all topic entries',page.locator('.card-grid .node-card').count()==len(json.loads((REPO/'content/topics.json').read_text())['items']))
     for topic in ['linear-algebra','graphics-transforms']:
         page.goto(base+'/topics/'+topic+'/index.html');ok(topic+' has reusable nodes and path',page.locator('.node-card').count()>=7 and page.locator('.path-card').count()==1)
     for node in nodes:

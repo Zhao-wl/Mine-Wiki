@@ -22,7 +22,7 @@ def main():
     c=load_catalog();validate(c)
     for name,text in render_site(c).items():
         if not (ROOT/name).is_file() or (ROOT/name).read_text()!=text:raise SystemExit('Rebuild stale generated file: '+name)
-    names={'index.html','assets/app.js','assets/math.js','assets/styles.css'}
+    names={'index.html','assets/app.js','assets/math.js','assets/styles.css','assets/aesthetics.js'}
     names.update(node_url(key) for key in c['nodes']);names.update(topic_url(key) for key in c['topics'])
     names.update(n['figure'] for n in c['nodes'].values() if n.get('figure'))
     for key,path in c['paths'].items():

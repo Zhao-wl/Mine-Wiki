@@ -1,0 +1,14 @@
+test_cases_and_boundaries_share_single_source_across_exports (__main__.AestheticsTests.test_cases_and_boundaries_share_single_source_across_exports) ... ok
+test_context_is_directed_and_does_not_invent_prerequisites (__main__.AestheticsTests.test_context_is_directed_and_does_not_invent_prerequisites) ... ok
+test_context_validates_targets_anchors_and_reasons (__main__.AestheticsTests.test_context_validates_targets_anchors_and_reasons) ... ok
+test_existing_prerequisite_graph_and_math_units_are_untouched (__main__.AestheticsTests.test_existing_prerequisite_graph_and_math_units_are_untouched) ... ok
+test_map_covers_three_layers_five_stages_and_only_one_ready_unit (__main__.AestheticsTests.test_map_covers_three_layers_five_stages_and_only_one_ready_unit) ... ok
+test_map_rejects_unknown_duplicate_and_omitted_nodes (__main__.AestheticsTests.test_map_rejects_unknown_duplicate_and_omitted_nodes) ... ok
+test_nonmath_path_does_not_link_absent_optional_sections (__main__.AestheticsTests.test_nonmath_path_does_not_link_absent_optional_sections) ... ok
+test_nonmath_path_has_no_phantom_formula_or_zero_scale_guidance (__main__.AestheticsTests.test_nonmath_path_has_no_phantom_formula_or_zero_scale_guidance) ... ok
+test_optional_teaching_fields_and_case_citations_are_validated (__main__.AestheticsTests.test_optional_teaching_fields_and_case_citations_are_validated) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.128s
+
+OK

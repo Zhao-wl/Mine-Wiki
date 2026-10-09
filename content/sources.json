@@ -36,6 +36,36 @@
       "title": "Unity 6.0：Transform.lossyScale",
       "url": "https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Transform-lossyScale.html",
       "note": "父缩放与子旋转造成斜切，三分量缩放的表示限制。"
+    },
+    {
+      "id": "loc-analysis",
+      "title": "美国国会图书馆：史料分析工具与教师指南",
+      "url": "https://www.loc.gov/static/programs/teachers/getting-started-with-primary-sources/documents/Analyzing_Primary_Sources.pdf",
+      "note": "2026-10-09 核查。观察、反思、提问和进一步调查的方法参考；本课四栏与实验为原创教学设计。"
+    },
+    {
+      "id": "hokusai-met",
+      "title": "大都会艺术博物馆：北斋《神奈川冲浪里》馆藏记录",
+      "url": "https://www.metmuseum.org/art/collection/search/45434",
+      "note": "2026-10-09 核查。支持作者、江户时代、约 1830–1832 年与纸本彩色木版媒介的资料事实。只链接，未转载馆藏图。"
+    },
+    {
+      "id": "hokusai-material",
+      "title": "大都会艺术博物馆：The Great Wave: Anatomy of an Icon",
+      "url": "https://www.metmuseum.org/essays/hokusai-great-wave",
+      "note": "Marco Leona，2020-04-10；2026-10-09 核查。支持普鲁士蓝与双木版印制的材料讨论，不支持本课提出的情绪解释。"
+    },
+    {
+      "id": "neurath-reading",
+      "title": "雷丁大学馆藏：Marie Neurath Collection",
+      "url": "https://collections.reading.ac.uk/special-collections/collections/marie-neurath-collection/",
+      "note": "2026-10-09 核查。支持 1920 年代维也纳 Isotype 团队、Marie 的资料转换角色和英国儿童书工作。未复制图片。"
+    },
+    {
+      "id": "neurath-science",
+      "title": "雷丁大学研究：Picturing science for children",
+      "url": "https://research.reading.ac.uk/research-blog/2019/10/31/picturing-science-for-children-the-power-of-marie-neuraths-designs/",
+      "note": "2019-10-31；2026-10-09 核查。支持放大、剖面、并置与逐步图示的案例；软件与游戏迁移为本课建议，非原文实验证明。"
     }
   ]
 }

@@ -41,3 +41,101 @@
 <details><summary>查看矩阵、解集与回代残差</summary><div id="reparent-matrices" class="matrix-output"></div></details>
 <p class="fallback">静态后备：旧父 M₀、新父 M₂、旧局部 T(1,1) 时，L_new=[[0,0,0],[0,1,1],[0,0,1]]，回代残差为 0。旧父 M₂、新父 M₀、旧局部 T(0,1) 时，原点 (2,2) 可达，但旧世界第一列 (0,2) 不可达。</p>
 </div>
+<!-- lab:aesthetic -->
+<div class="lab aesthetic-lab" id="lab-aesthetic">
+  <div class="lab-tag">OBSERVE · COMPARE · RECONSIDER</div>
+  <h3>一、只改间隔，组织会怎样被解释？</h3>
+  <p>六个矩形可以读作软件中的六项导航，也可以读作游戏入口的六根立柱。这是原创抽象草图；它提供形式证据，没有规定真实功能或故事。</p>
+  <div class="statement-guide">
+    <dl>
+      <div><dt>可观察事实</dt><dd>能指给别人核对什么？注明本图与观看条件。</dd></div>
+      <div><dt>解释推断</dt><dd>这些位置可能意味着什么？还有什么可能？</dd></div>
+      <div><dt>个人偏好</dt><dd>我在什么目的下更喜欢哪种？感知报告另说明。</dd></div>
+      <div><dt>可检验预测</dt><dd>改变条件后预期什么结果？什么会让我修订？</dd></div>
+    </dl>
+    <details><summary>混合句与“需补充条件”怎样处理？</summary><p>“我觉得拥挤，所以大家都会迷路，我更喜欢 A”可以拆成个体感知报告、群体预测和个人偏好。“红色更醒目”需补充背景、面积、亮度与观看条件；不能仅凭标签就确立事实。这些栏位标记陈述性质，不强迫每句只有一类。</p></details>
+  </div>
+  <div class="visual-comparison" id="aesthetic-comparison">
+    <figure class="rhythm-study" id="aesthetic-original">
+      <figcaption><b>A · 初看</b><span>同色、等宽、同一基线</span></figcaption>
+      <svg viewBox="0 0 456 148" role="img" aria-label="A：六个同色等宽矩形沿同一基线排列，五个间隔均为 32 个画布单位">
+        <path d="M28 120H428" stroke="#a7b3bb" stroke-width="1"/>
+        <g fill="#31566a"><rect x="28" y="48" width="40" height="72"/><rect x="100" y="48" width="40" height="72"/><rect x="172" y="48" width="40" height="72"/><rect x="244" y="48" width="40" height="72"/><rect x="316" y="48" width="40" height="72"/><rect x="388" y="48" width="40" height="72"/></g>
+      </svg>
+    </figure>
+    <figure class="rhythm-study" id="aesthetic-variant" hidden>
+      <figcaption><b>B · 比较</b><span>仅改变五个间隔的分配</span></figcaption>
+      <svg viewBox="0 0 456 148" role="img" aria-label="B：相同的六个矩形，五个间隔依次为 8、68、8、68、8 个画布单位">
+        <path d="M28 120H428" stroke="#a7b3bb" stroke-width="1"/>
+        <g fill="#31566a"><rect x="28" y="48" width="40" height="72"/><rect x="76" y="48" width="40" height="72"/><rect x="184" y="48" width="40" height="72"/><rect x="232" y="48" width="40" height="72"/><rect x="340" y="48" width="40" height="72"/><rect x="388" y="48" width="40" height="72"/></g>
+      </svg>
+    </figure>
+  </div>
+  <p class="small">固定项：456 × 148 的画布、6 个 40 × 72 的矩形、颜色、基线、左右端点和间隔总和 160。数值是 SVG 画布单位，显示时会整体等比缩放；比较不改变矩形大小。</p>
+  <div class="worksheet before-comparison">
+    <label for="aesthetic-observe">01 · 初看观察 / 个体感知（把两者注明）<textarea id="aesthetic-observe" data-aesthetic-field="observe" placeholder="先写能指给别人看的证据；若写感受，请标明“我此刻觉得……”"></textarea></label>
+    <label for="aesthetic-predict">02 · 比较前的预测与修订条件<textarea id="aesthetic-predict" data-aesthetic-field="predict" placeholder="只重新分配五个间隔后，我预期……；如果看到……，我会修订。"></textarea></label>
+  </div>
+  <div class="lab-buttons">
+    <button id="aesthetic-reveal" class="primary" data-aesthetic-action disabled aria-expanded="false" aria-controls="aesthetic-variant">写好预测，展开 B</button>
+    <button id="aesthetic-back" data-aesthetic-action disabled>返回初看 A（保留文字）</button>
+  </div>
+  <p id="aesthetic-stage-status" role="status">启用 JavaScript 后可先预测再比较；下方静态后备始终可读。</p>
+  <div class="worksheet after-comparison" id="aesthetic-analysis" hidden>
+    <h4>03 · 同一画面，写出两种有证据的解释</h4>
+    <p class="small">分别指出位置、间隔或重复关系。两种解释可以同时成立，不必决出唯一答案。</p>
+    <label for="aesthetic-explain-one">解释一 + 具体证据<textarea id="aesthetic-explain-one" data-aesthetic-field="explainOne" placeholder="我把 B 理解为……，依据是……"></textarea></label>
+    <label for="aesthetic-explain-two">解释二 + 具体证据<textarea id="aesthetic-explain-two" data-aesthetic-field="explainTwo" placeholder="同一个 B 也可以理解为……，依据是……"></textarea></label>
+    <label for="aesthetic-memorial">纪念场景：什么目的让 A 或 B 合适？<textarea id="aesthetic-memorial" data-aesthetic-field="memorial" placeholder="说明观看/行走/纪念的目标；允许两种都有理由。"></textarea></label>
+    <label for="aesthetic-improv">即兴表演：什么目的让 A 或 B 合适？<textarea id="aesthetic-improv" data-aesthetic-field="improv" placeholder="改变目的后，我会保留或修订哪些理由？"></textarea></label>
+    <h4>04 · 从草图接到软件与游戏</h4>
+    <p>设想软件六项导航和游戏入口六根立柱。它们在这页是同一幅草图，但真实任务不同。先把功能与表达分别写，再记个人选择。</p>
+    <label for="aesthetic-function">功能：具体任务、对象与检验方案<textarea id="aesthetic-function" data-aesthetic-field="function" placeholder="例如导航分组识别，或玩家辨认可进入通道；哪些结果可记录？本页并未测试真实用户。"></textarea></label>
+    <label for="aesthetic-expression">表达：可能传达什么、另一种解释是什么？<textarea id="aesthetic-expression" data-aesthetic-field="expression" placeholder="说明组织怎样支持某种意义；别把它说成所有人的共同反应。"></textarea></label>
+    <label for="aesthetic-preference">个人偏好：我选什么，条件是什么？<textarea id="aesthetic-preference" data-aesthetic-field="preference" placeholder="我更喜欢……；换一个用途时，我可能……"></textarea></label>
+  </div>
+  <details class="fallback"><summary>静态后备：B 的几何与两种可能解释</summary>
+    <p>A 的五个间隔是 32、32、32、32、32；B 是 8、68、8、68、8。两者总和均为 160，左右端点不动。第二、第三、第四、第五个矩形的位置变化，第一与第六不动。</p>
+    <svg class="static-rhythm" viewBox="0 0 456 148" role="img" aria-label="静态 B：六个相同矩形，间隔 8、68、8、68、8"><path d="M28 120H428" stroke="#a7b3bb"/><g fill="#31566a"><rect x="28" y="48" width="40" height="72"/><rect x="76" y="48" width="40" height="72"/><rect x="184" y="48" width="40" height="72"/><rect x="232" y="48" width="40" height="72"/><rect x="340" y="48" width="40" height="72"/><rect x="388" y="48" width="40" height="72"/></g></svg>
+    <p>“较小间隔可能暗示两两分组”和“较大间隔可能像两处停顿”都能指向证据；这是阅读解释，不是本页已经证实的心理规律。纪念场景可以需要安定，也可以刻意留下断裂；即兴表演也可能用均匀框架承接变化。先说明目的，再判断形式，不奖励某种偏好。</p>
+  </details>
+
+  <h3>二、画面不变，故事从哪里来？</h3>
+  <p>先看位置，再切换标题。下面标题均为<b>虚构教学标题</b>，没有真实人物关系；圆也没有预设身份。</p>
+  <figure class="title-study">
+    <figcaption id="aesthetic-caption">虚构教学标题：无标题</figcaption>
+    <svg id="aesthetic-circles" viewBox="0 0 456 160" role="img" aria-label="四个相同的小圆：一个在左侧，三个靠近右侧；位置固定，没有身份或关系信息">
+      <g fill="#31566a"><circle cx="86" cy="80" r="12"/><circle cx="306" cy="80" r="12"/><circle cx="338" cy="80" r="12"/><circle cx="370" cy="80" r="12"/></g>
+    </svg>
+  </figure>
+  <label for="aesthetic-title">只切换标题<select id="aesthetic-title" disabled><option value="none">无标题</option><option value="solitude">独处（虚构教学标题）</option><option value="left">被落下（虚构教学标题）</option></select></label>
+  <p id="aesthetic-title-status" role="status">图形不随标题改变。请保留距离关系与故事解释的区别。</p>
+  <div class="worksheet">
+    <label for="aesthetic-title-observe">位置证据：哪些没有随标题改变？<textarea id="aesthetic-title-observe" data-aesthetic-field="titleObserve" placeholder="先写圆的数量、位置与相对距离；别把“被排斥”写成图像事实。"></textarea></label>
+    <label for="aesthetic-title-interpret">标题补充了什么故事？另一种解释？<textarea id="aesthetic-title-interpret" data-aesthetic-field="titleInterpret" placeholder="我的联想……；另一种可能……；目前缺少的证据……"></textarea></label>
+  </div>
+  <details class="fallback"><summary>静态后备：同一画面的两个标题</summary><p>为完全相同的四圆画面分别设想“独处”与“被落下”。第一种故事可能是主动选择，第二种可能是错过同行；它们都不是几何位置给出的事实。尚可解释为等待、暂时分开或抽象排列。顺序观看的自述只能记录你这次的联想，不能证明标题对所有人都有固定作用。</p></details>
+
+  <h3>三、迁移、复查与本地记录</h3>
+  <div class="worksheet">
+    <label for="aesthetic-transfer">迁移到绘画 / 摄影 / 游戏镜头<textarea id="aesthetic-transfer" data-aesthetic-field="transfer" placeholder="记作品/场景名称、出处与观看条件；再写证据、两种解释、偏好与可检验预测。"></textarea></label>
+    <label for="aesthetic-background">一个待核实背景问题与调查线索<textarea id="aesthetic-background" data-aesthetic-field="background" placeholder="例如标题是谁给的？作品用于何处？材料/印本是否相同？去哪里核对？"></textarea></label>
+  </div>
+  <fieldset class="aesthetic-checks"><legend>自己复查理由，允许继续修订</legend>
+    <label><input type="checkbox" data-aesthetic-check="evidence">我能指明证据与观看条件；感知报告注明“对我而言”。</label>
+    <label><input type="checkbox" data-aesthetic-check="alternative">我给出另一种有依据的解释，未把虚构标题当事实。</label>
+    <label><input type="checkbox" data-aesthetic-check="context">我说明目的、使用者和语境，功能/表达/偏好分别讨论。</label>
+    <label><input type="checkbox" data-aesthetic-check="testable">预测有可记录结果与修订条件；未把自述扩大成群体结论。</label>
+  </fieldset>
+  <div class="lab-buttons"><button id="aesthetic-review" data-aesthetic-action disabled>查看记录自检提示</button></div>
+  <p id="aesthetic-review-status" role="status">反馈检查遗漏与自查项目，不自动判断解释正确，也不给美丑分数。</p>
+  <details><summary>怎样评价理由的质量？</summary><p>证据：“像三组”要指出哪几个间隔；仅说“高级”还缺描述。替代解释：两两分组与两处停顿可以并存，需在真实任务中再检验。语境：说明纪念或即兴的具体目的，避免用风格标签决定选择。可检验性：“大家更喜欢”缺参与者、比较方法与修订条件。你选择 A、B、二者皆可或都不选，都不会因此失分。</p></details>
+  <p class="local-record-policy">这些答案默认只暂存在当前页面；点击“保存练习”才写入当前浏览器的 localStorage，键为 <code>mine-wiki.aesthetics.observation.v1</code>。节点页与第一单元共用这份练习。无上传、无跨设备同步；更换域名、端口或浏览器不能自动迁移。自评/疑问仍使用全站原有记录，操作各自独立。</p>
+  <div class="lab-buttons">
+    <button id="aesthetic-save" class="primary" data-aesthetic-action disabled>保存练习在本机</button>
+    <button id="aesthetic-export" data-aesthetic-action disabled>导出这份练习</button>
+    <button id="aesthetic-reset" data-aesthetic-action disabled>重置本次练习（保留已保存副本）</button>
+    <button id="aesthetic-delete" data-aesthetic-action disabled>删除已保存练习</button>
+  </div>
+  <p id="aesthetic-storage-status" role="status">未启用交互。正文、案例、答案与静态后备仍可阅读。</p>
+</div>

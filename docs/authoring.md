@@ -27,9 +27,9 @@ ID 使用小写英文和连字符，第一次确定后长期保留，不随标�
 }
 ```
 
-`requires` 表示必要前置，有方向且必须写理由；不能自引用或构成循环。`related` 表示可选延伸，按双向关系展示，不当作前置。反向“哪些知识以此为前提”、主题归属与路径使用关系由生成器计算，不手工维护两份关系。
+`requires` 表示必要前置，有方向且必须写理由；不能自引用或构成循环。`related` 表示可选延伸，按双向关系展示，不当作前置。可选 `context` 使用相同的 node/anchor/reason 引用形状，必须写理由：它是有方向的语境关联，不加入先修图、不自动建立反向 related；允许相互提供语境。反向“哪些知识以此为前提”、主题归属与路径使用关系由生成器计算，不手工维护两份关系。
 
-稳定块锚点包括 `overview`、`intuition`、`formula`、`example`、`experiment`、`exercise`、`connections`、`notes`、`references`；只有存在相应内容的锚点才能被引用。元数据使用 `node`/`anchor`，由生成器解析链接，不硬写跨目录路径。资料使用 `sources` ID，API 陈述保留具体版本和实测边界。
+稳定块锚点包括 `overview`、`intuition`、`formula`、`example`、`experiment`、`exercise`、`boundaries`、`cases`、`connections`、`notes`、`references`；只有存在相应内容的锚点才能被引用。元数据使用 `node`/`anchor`，由生成器解析链接，不硬写跨目录路径。资料使用 `sources` ID，API 陈述保留具体版本和实测边界。
 
 若未来需要拆一个节点，保留原 ID 作为完整总览，再增加新节点并链接过去；不要让旧 ID 静默变成另一个含义，也不要复用已用过的 ID。重大教学变更在 Git 记录，读者的自评不会被当作自动重新考试的结果。
 
@@ -69,3 +69,15 @@ ID 使用小写英文和连字符，第一次确定后长期保留，不随标�
 旧 `mine-wiki.zero-scale.v1` 通过路径元数据的一一映射迁入 `mine-wiki.learning.v1`：掌握度按稳定节点 ID 共享，疑问归入 `path:zero-scale`，节点疑问使用 `node:<id>`。迁移只填补新记录没有的字段，不覆盖明确的 false 或新疑问，保留原始旧键。清除新记录中的当前页面内容不会触发再次导入。
 
 格式异常、版本过新或存储不可用时不覆盖原记录，页面提示并允许临时编辑与导出。导出包含全部节点自评、各页面疑问和迁移标记；当前不提供自动导入或跨设备同步。浏览器域名/端口变化意味着不同存储来源，发布后也不会自动获得本机预览时的记录。
+
+## 审美内容的兼容扩展
+
+不改旧节点的必需字段。新节点可提供 `question`（问题字符串）、`boundaries`（非空字符串数组）与 `cases`（案例数组）。每个案例包含 `title`、`paragraphs` 和 `sources`；案例来源必须也登记在节点 sources 中。问题、原理、逐步例证、实验、案例、练习及来源均从节点进入单页和路径；`boundaries` / `cases` 只在存在正文时产生可引用锚点。读者看到的资料事实、本课解释与待核实问题应明确区分。
+
+非数学路径可以省略 `example`，不需要为此编造共享数值算例或数学先修。原 `zero-scale` 的算例、媒体、迁移映射和导出继续保留。外部案例本次只链接出处，不嵌入外部图片；实验 SVG 为仓库原创。来源说明记录新资料的核查日期，不重写旧来源的历史核查日期。
+
+主题可选 `learning_map`：`orientation`、三层 `layers`、建议节奏 `stages` 与 `history_questions`。layers 和 stages 的每个组都有稳定 ID、title、summary、nodes；stage 另有 practice。两组分别完整覆盖该主题节点，不能重复、遗漏或引用主题外节点。地图的完成数量和标签从节点 status 计算，不在正文中手工维护两份状态。阶段是建议顺序，只有 requires 才是必要先修。
+
+共享实验模板仍在 `assets/labs.html`，审美增强单独放在 `assets/aesthetics.js`，仅含该实验的页面加载。没有新框架、平台、音视频或远程运行依赖。练习字段 13 个、自检项 4 个，专用键 `mine-wiki.aesthetics.observation.v1`；只有主动保存才写入。节点页和首课路径共享这份练习，版本或格式不兼容时不覆盖原值；保存失败仍能导出当前页。返回初看保留文字；重置仅清当前页面、保留已保存副本；删除按钮仅移除专用键、保留当前文字和其他课程记录。全站自评/疑问仍由既有 app.js 管理。
+
+新增检查：`python3 tests/aesthetics_content_test.py` 和 `python3 tests/aesthetics_browser_test.py`。原浏览器测试可用 `MINE_WIKI_BROWSER_OUT=/tmp/mine-wiki-zero-regression` 分开保存截图与结果，避免重写历史验证资产。离线读者包同步包含审美脚本。

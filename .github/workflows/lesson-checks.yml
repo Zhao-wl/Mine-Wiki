@@ -17,6 +17,9 @@ jobs:
       - name: Math branches and numerical cases
         run: node --test lessons/zero-scale/tests/math.test.js
       - name: Content graph, references, states and compatibility
-        run: python3 tests/content_test.py
+        run: |
+          python3 tests/content_test.py
+          python3 tests/aesthetics_content_test.py
+          node --check assets/aesthetics.js
       - name: Generated pages match their single source
         run: python3 scripts/build_site.py --check

@@ -36,7 +36,7 @@ def load_catalog(root=ROOT):
 
 def anchors(node):
     result={'overview','connections','notes','references'}
-    for key,anchor in [('intuition','intuition'),('formula','formula'),('steps','example'),('exercise','exercise')]:
+    for key,anchor in [('intuition','intuition'),('formula','formula'),('steps','example'),('exercise','exercise'),('boundaries','boundaries'),('cases','cases')]:
         if node.get(key):result.add(anchor)
     if node.get('lab'):result.add('experiment')
     return result
@@ -63,13 +63,23 @@ def validate(catalog,root=ROOT):
     for key,n in nodes.items():
         require(n.get('status') in STATUSES,f'{key}: invalid status')
         require(all(isinstance(n.get(f),str) and n[f].strip() for f in ['title','summary']),f'{key}: title and summary required even for stub')
-        for relation in ['requires','related']:
-            require(isinstance(n.get(relation),list),f'{key}: {relation} must be a list')
+        for relation in ['requires','related','context']:
+            require(isinstance(n.get(relation,[]),list),f'{key}: {relation} must be a list')
+            if relation!='context':require(relation in n,f'{key}: {relation} must be a list')
             seen=set()
-            for r in n[relation]:
+            for r in n.get(relation,[]):
                 ref(r,key);target=r['node'];require(target!=key,f'{key}: self reference')
                 require(target not in seen,f'{key}: duplicate {relation} {target}');seen.add(target)
-                if relation=='requires':require(isinstance(r.get('reason'),str) and bool(r['reason'].strip()),f'{key}: prerequisite needs a reason')
+                if relation in {'requires','context'}:require(isinstance(r.get('reason'),str) and bool(r['reason'].strip()),f'{key}: {"prerequisite" if relation=="requires" else "context"} needs a reason')
+        if 'question' in n:require(isinstance(n['question'],str) and bool(n['question'].strip()),f'{key}: question must be nonempty')
+        if 'boundaries' in n:strings(n['boundaries'],f'{key}: boundaries',True)
+        if 'cases' in n:
+            require(isinstance(n['cases'],list) and bool(n['cases']),f'{key}: cases must be a nonempty list')
+            for case in n['cases']:
+                require(isinstance(case,dict) and isinstance(case.get('title'),str) and bool(case['title'].strip()),f'{key}: case needs a title')
+                strings(case.get('paragraphs'),f'{key}: case paragraphs',True)
+                strings(case.get('sources'),f'{key}: case sources',True)
+                for sid in case['sources']:require(sid in sources and sid in n.get('sources',[]),f'{key}: case citation must be registered in node sources')
         if n['status']=='ready':
             for field in ['intuition','steps']:strings(n.get(field),key+': '+field,True)
             require(all(isinstance(n.get(f),str) and n[f].strip() for f in ['exercise','answer']),f'{key}: ready content incomplete')
@@ -92,7 +102,7 @@ def validate(catalog,root=ROOT):
     for key,p in paths.items():
         require(p.get('status') in STATUSES,f'{key}: invalid path status')
         require(p.get('title') and p.get('summary'),f'{key}: incomplete path metadata')
-        require(p.get('example') in examples,f'{key}: unknown path example')
+        if 'example' in p:require(p['example'] in examples,f'{key}: unknown path example')
         require(isinstance(p.get('steps'),list) and bool(p['steps']),f'{key}: path has no steps')
         seen=set();old_anchors=set();used_labs=set()
         for step in p['steps']:
@@ -126,6 +136,21 @@ def validate(catalog,root=ROOT):
             values=t.get(field,[]);strings(values,f'{key}: {field}')
             require(len(values)==len(set(values)),f'{key}: duplicate {field} member')
             require(all(v in targets for v in values),f'{key}: unknown {field} member')
+        if 'learning_map' in t:
+            m=t['learning_map'];require(isinstance(m,dict),f'{key}: invalid learning map')
+            require(isinstance(m.get('orientation'),str) and bool(m['orientation'].strip()),f'{key}: map orientation required')
+            strings(m.get('history_questions'),f'{key}: history questions',True)
+            for field in ['layers','stages']:
+                groups=m.get(field);require(isinstance(groups,list) and bool(groups),f'{key}: map {field} required')
+                unique(groups,f'{key}: map {field}');seen=set()
+                for group in groups:
+                    require(all(isinstance(group.get(f),str) and group[f].strip() for f in ['title','summary']),f'{key}: incomplete map group')
+                    strings(group.get('nodes'),f'{key}: map nodes',True)
+                    for target in group['nodes']:
+                        require(target in t['nodes'],f'{key}: unknown map node {target}')
+                        require(target not in seen,f'{key}: duplicate map {field} node {target}');seen.add(target)
+                    if field=='stages':require(isinstance(group.get('practice'),str) and bool(group['practice'].strip()),f'{key}: map practice required')
+                require(seen==set(t['nodes']),f'{key}: map {field} must cover topic nodes')
     return {'nodes':len(nodes),'paths':len(paths),'topics':len(topics),'prerequisite_edges':sum(len(n['requires']) for n in nodes.values())}
 
 def reverse_index(c):
