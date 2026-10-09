@@ -1,0 +1,111 @@
+{
+  "source_commit": "39c85255b108e2aa9a00537bdc7e357482935c0e",
+  "source_branch": "learning/zero-scale-chinese-case",
+  "html_pages": 14,
+  "files": {
+    "assets/app.js": {
+      "bytes": 16105,
+      "sha256": "292f0e63cc40a80c81b829198825f32f9a209c1f70f35486788ef036b83bd5e1"
+    },
+    "assets/math.js": {
+      "bytes": 3739,
+      "sha256": "8226664dbb3f6cd586345b58cc1a77ecc119bf6685e2015dd2435ab500e6b71c"
+    },
+    "assets/styles.css": {
+      "bytes": 9963,
+      "sha256": "d970bc0cdab55899b529df294c1cb7e4bb96838d2176f411198b233fb3415939"
+    },
+    "index.html": {
+      "bytes": 3188,
+      "sha256": "3a61b521d0173c8a075cc069825722462868d91db278f8de3424020d339dc5da"
+    },
+    "knowledge/affine-homogeneous/index.html": {
+      "bytes": 7790,
+      "sha256": "fe04bb1682fb7df2c1b238724544046cbd30e0c4b643dcc1b992efef03044f60"
+    },
+    "knowledge/basis-coordinates/index.html": {
+      "bytes": 9288,
+      "sha256": "492781ed509e0df8c78a7104f4b5da5ed9a742c702e5276b02fca50f66c57a8c"
+    },
+    "knowledge/invertibility-information/index.html": {
+      "bytes": 8715,
+      "sha256": "9e4f1fe64e874d694a78471e9be8bcdf833c5ffef45c483ca88a0934c4f3282e"
+    },
+    "knowledge/local-world-transforms/index.html": {
+      "bytes": 8098,
+      "sha256": "bd8f9247e70fffbf2ee1609f1f18a55885170d08bb1ffcca3e5dbec4a9cc5519"
+    },
+    "knowledge/matrix-linear-map/index.html": {
+      "bytes": 7614,
+      "sha256": "9ae3c947b61c9fe5a71bd77485ee8380792a7eb064851d027a06d9695e3f61bd"
+    },
+    "knowledge/numerical-conditioning/index.html": {
+      "bytes": 10001,
+      "sha256": "cb272a06c5ea47b3dc37fbfadef2d56ad31cb349b3c24c132be9c6bccee34354"
+    },
+    "knowledge/point-vector/index.html": {
+      "bytes": 7707,
+      "sha256": "d4e5b73cdb8c8110cd89daa06756334c3f91f98fcda68478278650c94e1e0e2c"
+    },
+    "knowledge/reparenting-equations/index.html": {
+      "bytes": 12255,
+      "sha256": "776c84fe04309c97e801f25ec8e7a2c438cda8a4dca96c336de2cf014e6d6fea"
+    },
+    "knowledge/transform-composition/index.html": {
+      "bytes": 8716,
+      "sha256": "b961b1f448f19dce9582ac973aa01001173ac1c1b3c4c01f7643dc1e1841a091"
+    },
+    "lessons/zero-scale/assets/collapse.svg": {
+      "bytes": 2096,
+      "sha256": "f5a84c1bb56b9fcd0789669f85e8cfdeea557b6d9a1ab1ce4edf72e512d42bfd"
+    },
+    "lessons/zero-scale/assets/hierarchy.svg": {
+      "bytes": 1768,
+      "sha256": "d4e708a96fb5a4c111c8518d78d66e306ba99abd52893feacff93907e6eb535d"
+    },
+    "lessons/zero-scale/assets/points.svg": {
+      "bytes": 2141,
+      "sha256": "f0cfa05d0127b98592d54c4a1d87fd73dd1c02a5c88ec7fb6d2335040f310e02"
+    },
+    "lessons/zero-scale/course.md": {
+      "bytes": 20237,
+      "sha256": "19766c1dd9f2db9f9d29ab3786ee6a0a2a31ffa5511cc3e08d137324b377d2cc"
+    },
+    "lessons/zero-scale/history.html": {
+      "bytes": 2605,
+      "sha256": "9626b2bad6f32f7b42917b55ca0f3f3a0160471a9cca7e3aeb7a4f2acbbeab6e"
+    },
+    "lessons/zero-scale/index.html": {
+      "bytes": 50757,
+      "sha256": "c19a4ccccb57145dcded5fadd46f846f32a2bd4c4e9f4c7326876e0550fc3bed"
+    },
+    "lessons/zero-scale/media/lesson-zh.mp4": {
+      "bytes": 6027100,
+      "sha256": "5d20a4d9982f88c69f18db0b39a95bfce3e3008c5e92aa1789acbd4f6c50b139"
+    },
+    "lessons/zero-scale/media/lesson-zh.srt": {
+      "bytes": 7780,
+      "sha256": "e02f98c5ddfeb5fb56f9d35ca291794446370fffabfa4d465a5c6dfd01c6ff93"
+    },
+    "lessons/zero-scale/media/lesson-zh.vtt": {
+      "bytes": 7569,
+      "sha256": "aab0560f218c07f224259199513f23616e2156928000ed5638d4dd54a1f55a35"
+    },
+    "lessons/zero-scale/media/poster.jpg": {
+      "bytes": 74530,
+      "sha256": "20ddcf718015fe63df703fa54ad870f888256f20bb1de536dd6722339c0918b3"
+    },
+    "lessons/zero-scale/media/transcript.md": {
+      "bytes": 10061,
+      "sha256": "ca0e04ee79cd1f17a6e9ee64f9f0e22f352d6561d9f06fff9cfa21e756eb098b"
+    },
+    "topics/graphics-transforms/index.html": {
+      "bytes": 5188,
+      "sha256": "7137c276b14849eb99abc9a79ca15acd7b7f1ec0ca157f80a95ca0fb0f7c1242"
+    },
+    "topics/linear-algebra/index.html": {
+      "bytes": 4849,
+      "sha256": "97c942184a3a3798760f9b36ba137b5115d6910163fe945212c0ecd216d62b51"
+    }
+  }
+}
