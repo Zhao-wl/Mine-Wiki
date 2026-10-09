@@ -1,5 +1,7 @@
 # Mine-Wiki
 
+**在线阅读 / 网页首页：** [https://zhao-wl.github.io/Mine-Wiki/](https://zhao-wl.github.io/Mine-Wiki/)
+
 从问题出发，把一个知识点的前提、原理、算例与应用逐步讲清。以静态交互网页为主；知识节点独立维护，主题帮助查找，问题路径把节点串成连贯的学习过程。
 
 - [学习首页](index.html)
