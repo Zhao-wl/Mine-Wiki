@@ -1,8 +1,12 @@
 {
-  "source_commit": "39c85255b108e2aa9a00537bdc7e357482935c0e",
-  "source_branch": "learning/zero-scale-chinese-case",
-  "html_pages": 14,
+  "source_commit": "b4d54dc9dc77f65a991a6eee81b5eeed5470a1c2",
+  "source_branch": "main",
+  "html_pages": 35,
   "files": {
+    "assets/aesthetics.js": {
+      "bytes": 6466,
+      "sha256": "2a2e661f92de93fb819c8daa4be9aee11d93ad5675cc67a69231b14be3bc8e24"
+    },
     "assets/app.js": {
       "bytes": 16105,
       "sha256": "292f0e63cc40a80c81b829198825f32f9a209c1f70f35486788ef036b83bd5e1"
@@ -12,48 +16,132 @@
       "sha256": "8226664dbb3f6cd586345b58cc1a77ecc119bf6685e2015dd2435ab500e6b71c"
     },
     "assets/styles.css": {
-      "bytes": 9963,
-      "sha256": "d970bc0cdab55899b529df294c1cb7e4bb96838d2176f411198b233fb3415939"
+      "bytes": 14144,
+      "sha256": "64309ed2f5035d02206e609d5a3c1a0c6ffd0bee254e4936bbf7555a70b53ba0"
     },
     "index.html": {
-      "bytes": 3188,
-      "sha256": "3a61b521d0173c8a075cc069825722462868d91db278f8de3424020d339dc5da"
+      "bytes": 4035,
+      "sha256": "1db952381b4ca2e2d519b47f6ae6c80c231e02598b91ddbe2ddc2d5eea8a4a13"
+    },
+    "knowledge/aesthetic-critique/index.html": {
+      "bytes": 4369,
+      "sha256": "1915a08bcc711af7ef3f77728ab099e6d0c9953324ab6a6423f30cc96c2048a8"
     },
     "knowledge/affine-homogeneous/index.html": {
-      "bytes": 7790,
-      "sha256": "fe04bb1682fb7df2c1b238724544046cbd30e0c4b643dcc1b992efef03044f60"
+      "bytes": 7866,
+      "sha256": "9163022d563b96e63f1067f2b34ebbeb3b7167edce052e8c244f70b670ef303f"
+    },
+    "knowledge/architecture-gardens/index.html": {
+      "bytes": 4189,
+      "sha256": "6e37e409954a73786e66ffca028aa3f78e8b21bf7e52e6781ce909173a3157bc"
     },
     "knowledge/basis-coordinates/index.html": {
-      "bytes": 9288,
-      "sha256": "492781ed509e0df8c78a7104f4b5da5ed9a742c702e5276b02fca50f66c57a8c"
+      "bytes": 9364,
+      "sha256": "6dffee6d3cfb1484ad74a8fb99b3552e29d85bd096686fccc3ea6552ba02c5ac"
+    },
+    "knowledge/clothing-textiles/index.html": {
+      "bytes": 4189,
+      "sha256": "abfb9f481c3e262d2b2cf189e001d458672298ddabb0715488d190428b438fee"
+    },
+    "knowledge/color-light/index.html": {
+      "bytes": 4204,
+      "sha256": "bbfa63b01797751e327a4dec2fee3aeeda081694dd2a25da1376284092a73fd2"
+    },
+    "knowledge/form-composition/index.html": {
+      "bytes": 4335,
+      "sha256": "ebae1942bd25818c2e910f1b8a6c401b7cbdae9ee2e0ecadd3b6e0c68d4519bc"
+    },
+    "knowledge/game-aesthetics/index.html": {
+      "bytes": 4239,
+      "sha256": "c0348b641aed5a976a32344fd3e0fd68b3af82c5b05c21d8f0bff4a12c74479f"
+    },
+    "knowledge/industrial-craft/index.html": {
+      "bytes": 4217,
+      "sha256": "9ec3c8df67f55bac7741e55d8b770798bd9302345a22e2d35250d350d593ccba"
+    },
+    "knowledge/information-design/index.html": {
+      "bytes": 4233,
+      "sha256": "7969425707491e74809b54ffe2630a0e43e29c2e6f64578a4be0c7830c722850"
+    },
+    "knowledge/integrated-aesthetic-design/index.html": {
+      "bytes": 4257,
+      "sha256": "deaefd9bf68e8e20a02221e76cb7c81e44ef921613b5605d9c4877374c32b74a"
     },
     "knowledge/invertibility-information/index.html": {
-      "bytes": 8715,
-      "sha256": "9e4f1fe64e874d694a78471e9be8bcdf833c5ffef45c483ca88a0934c4f3282e"
+      "bytes": 8791,
+      "sha256": "d8b0038fb81d324677f1c42973740c280473fb0d206ad84269965f54e9d2192a"
     },
     "knowledge/local-world-transforms/index.html": {
-      "bytes": 8098,
-      "sha256": "bd8f9247e70fffbf2ee1609f1f18a55885170d08bb1ffcca3e5dbec4a9cc5519"
+      "bytes": 8174,
+      "sha256": "107cc92b1a2a1eec30594bd470f5e83cb993cedf06d8b1b3916b76bc2efd3de0"
+    },
+    "knowledge/material-texture/index.html": {
+      "bytes": 4169,
+      "sha256": "5d39996cc4323c5638245160490a9cc4403a68b72859d742ae3e5b2407cf6316"
     },
     "knowledge/matrix-linear-map/index.html": {
-      "bytes": 7614,
-      "sha256": "9ae3c947b61c9fe5a71bd77485ee8380792a7eb064851d027a06d9695e3f61bd"
+      "bytes": 7690,
+      "sha256": "8bc668905716298c035e79a438f479e09a177ad8c4c9a81221ea0d5e424c6d74"
+    },
+    "knowledge/narrative-symbol/index.html": {
+      "bytes": 4223,
+      "sha256": "70b154401e3735beb337837658d15fc2c13644df2830b4a5dcf290f3b4c1d35c"
+    },
+    "knowledge/nature-observation/index.html": {
+      "bytes": 4194,
+      "sha256": "15199844d470ebed3cab01bdcee4306f43f8132da96a36e4309d7e339ef4601d"
     },
     "knowledge/numerical-conditioning/index.html": {
-      "bytes": 10001,
-      "sha256": "cb272a06c5ea47b3dc37fbfadef2d56ad31cb349b3c24c132be9c6bccee34354"
+      "bytes": 10077,
+      "sha256": "f083c3ca1fa1b0e1121906a6fa6cb419666672f590b0dc440d16406e53314b2a"
+    },
+    "knowledge/observation-interpretation-preference/index.html": {
+      "bytes": 32213,
+      "sha256": "5f5454833bceb5e715ff7191d7e9902dd7d73c623b2d56162fc9f23d9d274c0a"
+    },
+    "knowledge/perception-attention/index.html": {
+      "bytes": 4379,
+      "sha256": "a88e2b4bd27ce8664d5c308ef008a272c4c1d23fe153573e475b5af6a1abf13a"
+    },
+    "knowledge/photo-moving-image/index.html": {
+      "bytes": 4191,
+      "sha256": "5117bad90bc60ae5a05e69bb62719de592d7b245c7a1147d902a6f6b6f6b6e67"
+    },
+    "knowledge/pictorial-arts/index.html": {
+      "bytes": 4264,
+      "sha256": "cdb28767832fa9c01a2e98d50c237d0de035666a1bbe572458b2a1bf896c3b7d"
     },
     "knowledge/point-vector/index.html": {
-      "bytes": 7707,
-      "sha256": "d4e5b73cdb8c8110cd89daa06756334c3f91f98fcda68478278650c94e1e0e2c"
+      "bytes": 7783,
+      "sha256": "4fe25189688d77a79c6198d4ccaff33de8ca7ef221ea04eeb7feb28e60ae277c"
     },
     "knowledge/reparenting-equations/index.html": {
-      "bytes": 12255,
-      "sha256": "776c84fe04309c97e801f25ec8e7a2c438cda8a4dca96c336de2cf014e6d6fea"
+      "bytes": 12331,
+      "sha256": "fdaccb660da798522fe00d30fd7ef6b16b8ab7054c309c3323c0beefc3a12292"
+    },
+    "knowledge/software-aesthetics/index.html": {
+      "bytes": 4226,
+      "sha256": "a2b6bdd5e5253a28be89a522fa0b270a7f6709ea30d8a0091782482df9dad20d"
+    },
+    "knowledge/space-body/index.html": {
+      "bytes": 4205,
+      "sha256": "7fe35575ef10d085ccaa2ed9eacecea913ce5accbc8b6cffc2be6ff98a305744"
+    },
+    "knowledge/time-rhythm/index.html": {
+      "bytes": 4177,
+      "sha256": "3c2d898ccc3e489e5db8e5a82ea4cddead8a24a651adaaa646829986ef29589e"
     },
     "knowledge/transform-composition/index.html": {
-      "bytes": 8716,
-      "sha256": "b961b1f448f19dce9582ac973aa01001173ac1c1b3c4c01f7643dc1e1841a091"
+      "bytes": 8792,
+      "sha256": "68880d2cc82c034e878ea16590c77e0c6e30b09ad2a7efbbe2986f6ef01606fb"
+    },
+    "lessons/aesthetics-observation/course.md": {
+      "bytes": 9775,
+      "sha256": "2a48a488b624e65b837ad9b5abd6a34befa446b5176e74ccad183ab977ee363c"
+    },
+    "lessons/aesthetics-observation/index.html": {
+      "bytes": 33263,
+      "sha256": "ae8767b65afa018413b5b9b8552f8a1ef9fcbcb52264d9ded9f5b97134dfe631"
     },
     "lessons/zero-scale/assets/collapse.svg": {
       "bytes": 2096,
@@ -72,12 +160,12 @@
       "sha256": "19766c1dd9f2db9f9d29ab3786ee6a0a2a31ffa5511cc3e08d137324b377d2cc"
     },
     "lessons/zero-scale/history.html": {
-      "bytes": 2605,
-      "sha256": "9626b2bad6f32f7b42917b55ca0f3f3a0160471a9cca7e3aeb7a4f2acbbeab6e"
+      "bytes": 2681,
+      "sha256": "89233373fc5fd50412aee823b5e7b264e11ea73fdf0573c51d02561323610f66"
     },
     "lessons/zero-scale/index.html": {
-      "bytes": 50757,
-      "sha256": "c19a4ccccb57145dcded5fadd46f846f32a2bd4c4e9f4c7326876e0550fc3bed"
+      "bytes": 50833,
+      "sha256": "d862fbadc0da39b8480e173cbfc2341918f0b7f2c742f6270dafb504fa3bc9aa"
     },
     "lessons/zero-scale/media/lesson-zh.mp4": {
       "bytes": 6027100,
@@ -99,13 +187,17 @@
       "bytes": 10061,
       "sha256": "ca0e04ee79cd1f17a6e9ee64f9f0e22f352d6561d9f06fff9cfa21e756eb098b"
     },
+    "topics/aesthetics/index.html": {
+      "bytes": 15550,
+      "sha256": "12dc45afb80d474944a978a2e538c195d7851e1ace3f0ac349a2d701c0d19fe0"
+    },
     "topics/graphics-transforms/index.html": {
-      "bytes": 5188,
-      "sha256": "7137c276b14849eb99abc9a79ca15acd7b7f1ec0ca157f80a95ca0fb0f7c1242"
+      "bytes": 5414,
+      "sha256": "886bb3c5afbf65605fa4e45d5f039b4f21bdfcf4865f09bea2c083ffd3409dae"
     },
     "topics/linear-algebra/index.html": {
-      "bytes": 4849,
-      "sha256": "97c942184a3a3798760f9b36ba137b5115d6910163fe945212c0ecd216d62b51"
+      "bytes": 5055,
+      "sha256": "bcee4414d8f6332f76537d97fa39e0ab58f463b3299498e3f80b894286bd5412"
     }
   }
 }
